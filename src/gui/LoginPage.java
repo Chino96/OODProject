@@ -1,3 +1,5 @@
+package gui;
+
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

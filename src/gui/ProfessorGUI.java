@@ -1,3 +1,4 @@
+package gui;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -22,7 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
-import comm.Database;
+import comm.DataBase;
 
 public class ProfessorGUI extends Application {
 
