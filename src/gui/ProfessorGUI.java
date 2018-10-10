@@ -1,4 +1,3 @@
-package gui;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -22,12 +21,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-
-import comm.DataBase;
+import comm.Database;
 
 public class ProfessorGUI extends Application {
 
@@ -47,7 +42,7 @@ public class ProfessorGUI extends Application {
     private DropShadow shadowOn = new DropShadow(20, colorOn);
     private DropShadow shadowOff = new DropShadow(20, colorOff);
 
-    private Image GSIcon = new Image("/gui/images/GSIcon.png");
+    private Image GSIcon = new Image("/images/GSIcon.png");
 
     public static void main(String[] args) {
         launch();
@@ -68,8 +63,8 @@ public class ProfessorGUI extends Application {
         double bGroundWidth = 200;
         double bGroundHeight = 112.5;
 
-        Image backGrd = new Image(getClass().getResourceAsStream("/gui/images/GSLogo.png"), bGroundWidth, bGroundHeight, true, true);
-        Image help = new Image(getClass().getResourceAsStream("/gui/images/help.png"), 25, 25, false, true);
+        Image backGrd = new Image(getClass().getResourceAsStream("/images/GSLogo.png"), bGroundWidth, bGroundHeight, true, true);
+        Image help = new Image(getClass().getResourceAsStream("/images/help.png"), 25, 25, false, true);
 
         shadowOn.setSpread(0.7);
 
@@ -217,8 +212,8 @@ public class ProfessorGUI extends Application {
                 Pane emailsPane = new Pane();
                 Pane questionsPane = new Pane();
 
-                Image emailFmt = new Image(getClass().getResourceAsStream("gui/images/emails.png"));
-                Image questionFmt = new Image(getClass().getResourceAsStream("gui/images/question.png"));
+                Image emailFmt = new Image(getClass().getResourceAsStream("images/emails.png"));
+                Image questionFmt = new Image(getClass().getResourceAsStream("images/questions.png"));
 
                 Button close;
 

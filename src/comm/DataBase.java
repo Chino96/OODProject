@@ -1,5 +1,3 @@
-package comm;
-
 import java.sql.ResultSet;
 
 public class DataBase {
