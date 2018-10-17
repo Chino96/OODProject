@@ -38,7 +38,8 @@ public class ProfessorGUI extends Application {
 
 	// Window style
 	private String backgroundColor = "-fx-background-color: #041E60";
-	private String buttonStyle = " -fx-background-radius: 30px;";
+	private String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
+	private String buttonHoverStyle = "-fx-base: #957D3F; -fx-background-radius: 25px; -fx-border-color: #FFFFFF ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
 
 	// Adds shadow effect to buttons when hovered over
 	private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
@@ -66,8 +67,7 @@ public class ProfessorGUI extends Application {
 		double bGroundWidth = 200;
 		double bGroundHeight = 112.5;
 
-		Image backGrd = new Image(getClass().getResourceAsStream("/gui/images/GSLogo.png"), bGroundWidth, bGroundHeight,
-				true, true);
+		Image backGrd = new Image(getClass().getResourceAsStream("/gui/images/GSLogo.png"), bGroundWidth, bGroundHeight, true, true);
 		Image help = new Image(getClass().getResourceAsStream("/gui/images/help.png"), 25, 25, false, true);
 
 		shadowOn.setSpread(0.7);
@@ -79,8 +79,7 @@ public class ProfessorGUI extends Application {
 		// Set size and location of background image
 		BackgroundSize backgroundSize = new BackgroundSize(bGroundWidth, bGroundHeight, false, false, false, false);
 		BackgroundPosition bPosition = new BackgroundPosition(Side.LEFT, hPosition, false, Side.TOP, 23.75, false);
-		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-				bPosition, backgroundSize);
+		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, bPosition, backgroundSize);
 		Background background = new Background(bGround);
 
 		p.setBackground(background);
@@ -158,26 +157,26 @@ public class ProfessorGUI extends Application {
 		question.setPrefWidth(120);
 		question.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		question.setStyle(buttonStyle);
-		question.setOnMouseEntered(e -> question.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-		question.setOnMouseExited(e -> question.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
+		question.setOnMouseEntered(e -> question.setStyle(buttonHoverStyle));
+		question.setOnMouseExited(e -> question.setStyle(buttonStyle));
 
 		email.setPrefWidth(120);
 		email.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		email.setStyle(buttonStyle);
-		email.setOnMouseEntered(e -> email.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-		email.setOnMouseExited(e -> email.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
+		email.setOnMouseEntered(e -> email.setStyle(buttonHoverStyle));
+		email.setOnMouseExited(e -> email.setStyle(buttonStyle));
 
 		reports.setPrefWidth(120);
 		reports.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		reports.setStyle(buttonStyle);
-		reports.setOnMouseEntered(e -> reports.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-		reports.setOnMouseExited(e -> reports.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
+		reports.setOnMouseEntered(e -> reports.setStyle(buttonHoverStyle));
+		reports.setOnMouseExited(e -> reports.setStyle(buttonStyle));
 
 		send.setPrefWidth(120);
 		send.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		send.setStyle(buttonStyle);
-		send.setOnMouseEntered(e -> send.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-		send.setOnMouseExited(e -> send.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
+		send.setOnMouseEntered(e -> send.setStyle(buttonHoverStyle));
+		send.setOnMouseExited(e -> send.setStyle(buttonStyle));
 
 		btnHelp.setGraphic(new ImageView(help));
 		btnHelp.setStyle("-fx-background-color: transparent");
@@ -257,7 +256,7 @@ public class ProfessorGUI extends Application {
 			questionView.setX(questionsPane.getLayoutX() + (questionsPane.getPrefWidth() * 0.025));
 			questionView.setY(questionsPane.getLayoutY() + 30);
 
-			double closeWidth = 250;
+			double closeWidth = 150;
 			close = new Button("Close");
 			close.setPrefWidth(closeWidth);
 			close.setPrefHeight(30);
@@ -266,8 +265,8 @@ public class ProfessorGUI extends Application {
 			close.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 			close.setStyle(buttonStyle);
 			close.setOnAction(event1 -> helpStage.hide());
-			close.setOnMouseEntered(e -> close.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-			close.setOnMouseExited(e -> close.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
+			close.setOnMouseEntered(e -> close.setStyle(buttonHoverStyle));
+			close.setOnMouseExited(e -> close.setStyle(buttonStyle));
 
 			Label star = new Label("*");
 			star.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -339,74 +338,136 @@ public class ProfessorGUI extends Application {
 		});// end reports.setOnAction
 
 		send.setOnAction(event -> {
-			double textLayoutX = 100;
-
 			Stage sendStage = new Stage();
 			Pane sendPane = new Pane();
-			Scene sendScene = new Scene(sendPane, 500, 400);
 			sendPane.setStyle(backgroundColor);
 			sendStage.setTitle("Send Quiz");
 
-			Label timeLimit = new Label("Set Time Limit:");
-			timeLimit.setLayoutX(textLayoutX);
-			timeLimit.setLayoutY(20);
-			timeLimit.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-			timeLimit.setTextFill(Paint.valueOf("#FFFFFF"));
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-			Label qcode = new Label("Set Quiz Code:");
-			qcode.setLayoutX(textLayoutX);
-			qcode.setLayoutY(130);
-			qcode.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-			qcode.setTextFill(Paint.valueOf("#FFFFFF"));
+			// Boxes to set Start Time
+			ComboBox<String> startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
+			startMonth.setLayoutX(70);
+			startMonth.setPrefWidth(130);
+			startMonth.setLayoutY(82);
+			startMonth.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			Label feedback = new Label("Set Feedback Option:");
-			feedback.setLayoutX(textLayoutX);
-			feedback.setLayoutY(210);
-			feedback.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-			feedback.setTextFill(Paint.valueOf("#FFFFFF"));
+			ComboBox<Integer> startDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+			startDay.setLayoutX(startMonth.getLayoutX() + startMonth.getPrefWidth() + 5);
+			startDay.setPrefWidth(80);
+			startDay.setLayoutY(82);
+			startDay.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			Label dayLabel = new Label("Days:");
-			dayLabel.setLayoutX(textLayoutX);
+			ComboBox<Integer> startHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
+			startHour.setLayoutX(startDay.getLayoutX() + startDay.getPrefWidth() + 5);
+			startHour.setPrefWidth(80);
+			startHour.setLayoutY(82);
+			startHour.setStyle(buttonStyle + "-fx-font-size: 14px");
+
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+			Label startTime = new Label("Set Start Time");
+			startTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+			startTime.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			Label monthLabel = new Label("Month:");
+			monthLabel.setLayoutX(startMonth.getLayoutX() + 10);
+			monthLabel.setLayoutY(60);
+			monthLabel.setFont(Font.font("Arial", 14));
+			monthLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			Label dayLabel = new Label("Day:");
+			dayLabel.setLayoutX(startDay.getLayoutX() + 10);
 			dayLabel.setLayoutY(60);
 			dayLabel.setFont(Font.font("Arial", 14));
 			dayLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
-			Label hourLabel = new Label("Hours:");
-			hourLabel.setLayoutX(textLayoutX + 95);
+			Label hourLabel = new Label("Hour:");
+			hourLabel.setLayoutX(startDay.getLayoutX() + startDay.getPrefWidth() + 15);
 			hourLabel.setLayoutY(60);
 			hourLabel.setFont(Font.font("Arial", 14));
 			hourLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
-			Label minLabel = new Label("Minutes:");
-			minLabel.setLayoutX(textLayoutX + 190);
-			minLabel.setLayoutY(60);
-			minLabel.setFont(Font.font("Arial", 14));
-			minLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+			VBox startTimeBox = new VBox();
+			startTimeBox.setPrefWidth(startHour.getLayoutX() + startHour.getPrefWidth() - startMonth.getLayoutX());
+			startTimeBox.setLayoutX(startMonth.getLayoutX());
+			startTimeBox.setLayoutY(20);
+			startTimeBox.getChildren().addAll(startTime);
+			startTimeBox.setAlignment(Pos.CENTER);
 
-			// Boxes to set Time Limit
-			ComboBox<Integer> days = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-					11, 12, 13, 14, 15, 16, 17, 18, 19, 20));
-			days.setLayoutX(textLayoutX);
-			days.setLayoutY(82);
-			days.setStyle(buttonStyle + "-fx-font-size: 14px");
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-			ComboBox<Integer> hours = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-					11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24));
-			hours.setLayoutX(textLayoutX + 95);
-			hours.setLayoutY(82);
-			hours.setStyle(buttonStyle + "-fx-font-size: 14px");
+			// Boxes to set End Time
+			ComboBox<String> endMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
+			endMonth.setLayoutX(startHour.getLayoutX() + startHour.getPrefWidth() + 70);
+			endMonth.setLayoutY(82);
+			endMonth.setPrefWidth(130);
+			endMonth.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			ComboBox<Integer> mins = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-					11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-					36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
-			mins.setLayoutX(textLayoutX + 190);
-			mins.setLayoutY(82);
-			mins.setStyle(buttonStyle + "-fx-font-size: 14px");
+			ComboBox<Integer> endDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+			endDay.setLayoutX(endMonth.getLayoutX() + endMonth.getPrefWidth() + 5);
+			endDay.setLayoutY(82);
+			endDay.setPrefWidth(80);
+			endDay.setStyle(buttonStyle + "-fx-font-size: 14px");
+
+			ComboBox<Integer> endHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
+			endHour.setLayoutX(endDay.getLayoutX() + endDay.getPrefWidth() + 5);
+			endHour.setLayoutY(82);
+			endHour.setPrefWidth(80);
+			endHour.setStyle(buttonStyle + "-fx-font-size: 14px");
+
+			Label endTime = new Label("Set End Time");
+			endTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+			endTime.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			Label endMonthLabel = new Label("Month:");
+			endMonthLabel.setLayoutX(endMonth.getLayoutX() + 10);
+			endMonthLabel.setLayoutY(60);
+			endMonthLabel.setFont(Font.font("Arial", 14));
+			endMonthLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			Label endDayLabel = new Label("Day:");
+			endDayLabel.setLayoutX(endDay.getLayoutX() + 10);
+			endDayLabel.setLayoutY(60);
+			endDayLabel.setFont(Font.font("Arial", 14));
+			endDayLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			Label endHourLabel = new Label("Hour:");
+			endHourLabel.setLayoutX(endDay.getLayoutX() + endDay.getPrefWidth() + 15);
+			endHourLabel.setLayoutY(60);
+			endHourLabel.setFont(Font.font("Arial", 14));
+			endHourLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			VBox endTimeBox = new VBox();
+			endTimeBox.setPrefWidth(endHour.getLayoutX() + endHour.getPrefWidth() - endMonth.getLayoutX());
+			endTimeBox.setLayoutX(endMonth.getLayoutX());
+			endTimeBox.setLayoutY(20);
+			endTimeBox.getChildren().addAll(endTime);
+			endTimeBox.setAlignment(Pos.CENTER);
+
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+			Scene sendScene = new Scene(sendPane, endHour.getLayoutX() + endHour.getPrefWidth() + 70, 340);
+
+			Label qcode = new Label("Set Quiz Code");
+			qcode.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+			qcode.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			VBox qBox = new VBox();
+			qBox.setPrefWidth((startHour.getPrefWidth() + startHour.getLayoutX())-startMonth.getLayoutX());
+			qBox.setLayoutX(startTimeBox.getLayoutX());
+			qBox.setLayoutY(140);
+			qBox.setSpacing(5);
+			qBox.getChildren().addAll(qcode);
+			qBox.setAlignment(Pos.CENTER);
 
 			TextField quizCode = new TextField();
-			quizCode.setLayoutX(textLayoutX);
-			quizCode.setLayoutY(164);
-			quizCode.setStyle(buttonStyle + "-fx-font-size: 14px");
+			quizCode.setStyle(buttonStyle + "-fx-font-size: 34px; -fx-font-weight: bold;");
+			quizCode.setPrefWidth(130);
+			quizCode.setMaxHeight(50);
+			quizCode.setAlignment(Pos.CENTER);
+			quizCode.setLayoutX((qBox.getPrefWidth()-quizCode.getPrefWidth())/2 + qBox.getLayoutX());
+			quizCode.setLayoutY(qBox.getLayoutY() + 45);
 			quizCode.setTextFormatter(new TextFormatter<String>((Change change) -> {
 				String newText = change.getControlNewText();
 				if (newText.length() > 4) {
@@ -415,7 +476,24 @@ public class ProfessorGUI extends Application {
 					return change;
 				}
 			}));
+
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 			// FeedBack Options
+			Label feedback = new Label("Set Feedback Option");
+			feedback.setLayoutX(sendScene.getWidth()/2);
+			feedback.setLayoutY(140);
+			feedback.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+			feedback.setTextFill(Paint.valueOf("#FFFFFF"));
+
+			VBox feedbackBox = new VBox();
+			feedbackBox.setPrefWidth((startHour.getPrefWidth() + startHour.getLayoutX())-startMonth.getLayoutX());
+			feedbackBox.setLayoutX(endTimeBox.getLayoutX());
+			feedbackBox.setLayoutY(140);
+			feedbackBox.setSpacing(5);
+			feedbackBox.getChildren().addAll(feedback);
+			feedbackBox.setAlignment(Pos.CENTER);
+
 			final ToggleGroup group = new ToggleGroup();
 			RadioButton rb1 = new RadioButton("Provide feedback with all questions.");
 			rb1.setToggleGroup(group);
@@ -430,43 +508,29 @@ public class ProfessorGUI extends Application {
 			rb3.setToggleGroup(group);
 			rb3.setFont(Font.font("Arial", 14));
 
-			rb1.setLayoutX(textLayoutX);
-			rb2.setLayoutX(textLayoutX);
-			rb3.setLayoutX(textLayoutX);
+			rb1.setLayoutX(feedback.getLayoutX() + 50);
+			rb2.setLayoutX(feedback.getLayoutX() + 50);
+			rb3.setLayoutX(feedback.getLayoutX() + 50);
 
-			rb1.setLayoutY(245);
-			rb2.setLayoutY(275);
-			rb3.setLayoutY(305);
+			rb1.setLayoutY(feedback.getLayoutY() + 50);
+			rb2.setLayoutY(feedback.getLayoutY() + 80);
+			rb3.setLayoutY(feedback.getLayoutY() + 110);
 
 			rb1.setTextFill(Paint.valueOf("#FFFFFF"));
 			rb2.setTextFill(Paint.valueOf("#FFFFFF"));
 			rb3.setTextFill(Paint.valueOf("#FFFFFF"));
 
-			// Button gives option to return to last stage
-			Button cancel = new Button("Cancel");
-			cancel.setLayoutX(285);
-			cancel.setLayoutY(350);
-			cancel.setPrefWidth(90);
-			cancel.setPrefHeight(20);
-			cancel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-			cancel.setStyle(buttonStyle);
-			cancel.setOnMouseEntered(e -> cancel.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-			cancel.setOnMouseExited(e -> cancel.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
-			cancel.setOnAction(event12 -> {
-				sendStage.hide();
-				primaryStage.show();
-			});
+
 
 			// Button to send out quiz link
 			Button sendOut = new Button("Send");
-			sendOut.setLayoutX(400);
-			sendOut.setLayoutY(350);
+			sendOut.setLayoutX(sendScene.getWidth()- 100);
+			sendOut.setLayoutY(sendScene.getHeight()- 55);
 			sendOut.setPrefWidth(80);
-			sendOut.setPrefHeight(20);
 			sendOut.setFont(Font.font("Arial", FontWeight.BOLD, 18));
 			sendOut.setStyle(buttonStyle);
-			sendOut.setOnMouseEntered(e -> sendOut.setStyle("-fx-base: #957D3F; -fx-background-radius: 30px;"));
-			sendOut.setOnMouseExited(e -> sendOut.setStyle("-fx-base: #FFFFFF; -fx-background-radius: 30px;"));
+			sendOut.setOnMouseEntered(e -> sendOut.setStyle(buttonHoverStyle));
+			sendOut.setOnMouseExited(e -> sendOut.setStyle(buttonStyle));
 
 			sendOut.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -477,19 +541,34 @@ public class ProfessorGUI extends Application {
 								+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
 								+ "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision"
 								+ ")" + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
-					} else {
+					}
+					else {
 						Label err = new Label("Missing Required Field");
-						err.setLayoutY(350);
-						err.setLayoutX(10);
+						err.setLayoutY(295);
+						err.setLayoutX(100);
 						err.setStyle("-fx-font-family: serif; -fx-font-size: 24px; -fx-text-fill: red;");
 						sendPane.getChildren().add(err);
 					}
 				}
 
 			});
-			
-			sendPane.getChildren().addAll(sendOut, days, hours, mins, timeLimit, dayLabel, hourLabel, minLabel,
-					quizCode, qcode, rb1, rb2, rb3, feedback, cancel);
+
+			// Button gives option to return to last stage
+			Button cancel = new Button("Cancel");
+			cancel.setLayoutX(sendOut.getLayoutX() - 110);
+			cancel.setLayoutY(sendScene.getHeight()- 55);
+			cancel.setPrefWidth(95);
+			cancel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+			cancel.setStyle(buttonStyle);
+			cancel.setOnMouseEntered(e -> cancel.setStyle(buttonHoverStyle));
+			cancel.setOnMouseExited(e -> cancel.setStyle(buttonStyle));
+			cancel.setOnAction(event12 -> {
+				sendStage.hide();
+				primaryStage.show();
+			});
+
+
+			sendPane.getChildren().addAll(sendOut, startMonth, startDay, startHour, feedbackBox, dayLabel, hourLabel, monthLabel, endDayLabel, endHourLabel, endMonthLabel, qBox, quizCode, rb1, rb2, rb3, startTimeBox, endTimeBox, cancel, endMonth, endDay, endHour);
 			sendStage.getIcons().add(GSIcon);
 			sendStage.setScene(sendScene);
 			sendStage.show();

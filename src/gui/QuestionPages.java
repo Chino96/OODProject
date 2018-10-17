@@ -35,7 +35,7 @@ public class QuestionPages {
 
 		//previous button
 
-		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #999999 ; -fx-border-width: 3px; -fx-border-radius: 20px; -fx-background-insets: 0";
+		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3px; -fx-border-radius: 20px; -fx-background-insets: 2";
 		String backgroundColor = "-fx-background-color: #041E60";
 
 		private double paneWidth = 500;
@@ -44,6 +44,7 @@ public class QuestionPages {
 		int lineLength = 0;
 		
 		// Adds shadow effect to buttons when hovered over
+		//Adds shadow effect to buttons when hovered over
 		private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
 		private Color colorOff = new Color(0.5, 0.5, 0.5, 0);
 		private DropShadow shadowOn = new DropShadow(20, colorOn);
@@ -56,6 +57,9 @@ public class QuestionPages {
 			answers = new ArrayList<>();
 			answerBtnList = new ArrayList<>();
 			questions = new ArrayList<>();
+
+			shadowOn.setSpread(0.7);
+
 			btnNext = new Button("Next");
 			btnNext.setPrefWidth(80);
 			btnNext.setPrefHeight(40);
