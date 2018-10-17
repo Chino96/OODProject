@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -75,6 +76,13 @@ public class LoginPage {
 		btnLogin.setStyle(buttonStyle);
 		btnLogin.setOnMouseEntered(e -> btnLogin.setEffect(shadowOn));
 		btnLogin.setOnMouseExited(e -> btnLogin.setEffect(shadowOff));
+		
+		codeField.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.ENTER) {
+				btnLogin.fire();
+			}
+		});
+		
 
 		pane.setBackground(background);
 		pane.getChildren().addAll(btnLogin, lblCode, codeField);
