@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -33,13 +35,19 @@ public class QuestionPages {
 
 		//previous button
 
-		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #14336C; -fx-border-width: 3px; -fx-border-radius: 20px; -fx-background-insets: 0";
-		String backgroundColor = "-fx-background-color: #98B4C2";
+		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #999999 ; -fx-border-width: 3px; -fx-border-radius: 20px; -fx-background-insets: 0";
+		String backgroundColor = "-fx-background-color: #041E60";
 
 		private double paneWidth = 500;
 		private double paneHeight = 400;
 		int count = 0;
 		int lineLength = 0;
+		
+		// Adds shadow effect to buttons when hovered over
+		private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
+		private Color colorOff = new Color(0.5, 0.5, 0.5, 0);
+		private DropShadow shadowOn = new DropShadow(20, colorOn);
+		private DropShadow shadowOff = new DropShadow(20, colorOff);
 		
 		//no arg constructor
 		public QuestionPages() {
@@ -55,6 +63,8 @@ public class QuestionPages {
 			btnNext.setLayoutY(paneHeight - 55);
 			btnNext.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 			btnNext.setStyle(buttonStyle);
+			btnNext.setOnMouseEntered(e -> btnNext.setEffect(shadowOn));
+			btnNext.setOnMouseExited(e -> btnNext.setEffect(shadowOff));
 			
 			//read document when instantiated 
 			readDocument();
@@ -114,6 +124,7 @@ public class QuestionPages {
 			
 			//create label for question
 			Label question = new Label(questions.get(index).question);
+			question.setTextFill(Color.WHITE);
 			question.setPrefWidth(paneWidth-25);
 			question.setLayoutX(15);
 			question.setLayoutY(15);
@@ -146,6 +157,7 @@ public class QuestionPages {
 					rdioAnswer[i].setText(questions.get(index).answers.get(i));
 					rdioAnswer[i].setLayoutX(question.getLayoutX() + 20);
 					rdioAnswer[i].setLayoutY(yPos);
+					rdioAnswer[i].setTextFill(Color.WHITE);;
 					pane.getChildren().add(rdioAnswer[i]);
 					yPos += 25;
 				}

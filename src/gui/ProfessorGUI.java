@@ -37,7 +37,7 @@ public class ProfessorGUI extends Application {
 	private File emailList;
 
 	// Window style
-	private String backgroundColor = "-fx-background-color: #041E42";
+	private String backgroundColor = "-fx-background-color: #041E60";
 	private String buttonStyle = " -fx-background-radius: 30px;";
 
 	// Adds shadow effect to buttons when hovered over

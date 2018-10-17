@@ -30,7 +30,7 @@ public class LoginPage {
 		Pane outerPane = new Pane();
 
 		String buttonStyle = " -fx-background-radius: 25px; -fx-background-insets: 0";
-		String backgroundColor = "-fx-background-color: #041E42";
+		String backgroundColor = "-fx-background-color: #041E60";
 
 		//Create Georgia Southern background image in pane
 		Image backGrd = new Image("http://static-11.sinclairstoryline.com/resources/media/a1513171-a451-48a6-ad84-2ea32c3c1a53-large16x9_1280x720_51223E00TCAUL.png", 200, 112.5, true, true);
