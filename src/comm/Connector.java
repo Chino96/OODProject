@@ -21,7 +21,7 @@ public class Connector {
 
 	public Connector() {
 		port = "5432";
-		dbName = "/harrisgs";
+		dbName = "/oodquiz1";
 		user = "harris";
 		password = "professorgs";
 	}
@@ -58,7 +58,7 @@ public class Connector {
 	
 	public ResultSet MakeQuery(String s) {
 		try {
-			this.resultSet = this.getStatment().executeQuery(s);
+			this.resultSet = this.getStatement().executeQuery(s);
 		} catch (SQLException e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
@@ -67,14 +67,14 @@ public class Connector {
 	
 	public void update(String s) {
 		try {
-			this.getStatment().executeUpdate(s);
+			this.getStatement().executeUpdate(s);
 		}
 		catch(SQLException e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 	}
 	
-	public Statement getStatment() {
+	public Statement getStatement() {
 		try {
 			this.statment = connect.createStatement();
 		} catch (SQLException e) {

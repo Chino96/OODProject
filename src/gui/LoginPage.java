@@ -1,66 +1,106 @@
 package gui;
 
+import javafx.geometry.Side;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class LoginPage {
-	Pane pane;
-	Scene scene;
-	TextField emailField;
-	PasswordField pswdField;
-	Button btnLogin;
-	
+
+	private Pane pane;
+	private Scene scene;
+	private PasswordField codeField;
+	private Button btnLogin;
+
+	//Adds shadow effect to buttons when hovered over
+	private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
+	private Color colorOff = new Color(0.5, 0.5, 0.5, 0);
+	private DropShadow shadowOn = new DropShadow(20, colorOn);
+	private DropShadow shadowOff = new DropShadow(20, colorOff);
+
 	public LoginPage() {
 		pane = new Pane();
-		
-		pane.setPrefHeight(385);
-		pane.setPrefWidth(290);
+		Pane outerPane = new Pane();
 
-		emailField = new TextField();
-		emailField.setLayoutX(51);
-		emailField.setLayoutY(148);
-		emailField.setPrefWidth(196);
+		String buttonStyle = " -fx-background-radius: 25px; -fx-background-insets: 0";
+		String backgroundColor = "-fx-background-color: #041E42";
 
-		Label lblEmail = new Label("Email:");
-		lblEmail.setLayoutX(51);
-		lblEmail.setLayoutY(127);
+		//Create Georgia Southern background image in pane
+		Image backGrd = new Image("http://static-11.sinclairstoryline.com/resources/media/a1513171-a451-48a6-ad84-2ea32c3c1a53-large16x9_1280x720_51223E00TCAUL.png", 200, 112.5, true, true);
+		BackgroundSize backgroundSize = new BackgroundSize(150, 84.375, false, false, false, false);
+		BackgroundPosition bPosition = new BackgroundPosition(Side.LEFT, 45, false, Side.TOP, 15, false);
+		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,bPosition,backgroundSize);
+		Background background = new Background(bGround);
 
-		pswdField = new PasswordField();
-		pswdField.setLayoutX(51);
-		pswdField.setLayoutY(226);
-		pswdField.setPrefWidth(188);
+		pane.setPrefHeight(215);
+		pane.setPrefWidth(240);
 
-		Label lblPassword = new Label("Password:");
-		lblPassword.setLayoutX(51);
-		lblPassword.setLayoutY(210);
+		codeField = new PasswordField();
+		codeField.setLayoutX(113);
+		codeField.setLayoutY(115);
+		codeField.setPrefWidth(100);
 
-		btnLogin = new Button("Login");
-		btnLogin.setLayoutX(233);
-		btnLogin.setLayoutY(352);
+		codeField.setStyle(buttonStyle);
+		codeField.setTextFormatter(new TextFormatter<String>((TextFormatter.Change change) -> {
+			String newText = change.getControlNewText();
+			if (newText.length() > 4) {
+				return null ;
+			} else {
+				return change ;
+			}
+		}));
 
-		pane.getChildren().addAll(btnLogin, lblPassword, lblEmail, emailField, pswdField);
-		scene = new Scene(pane);
+
+		Label lblCode = new Label("Quiz Code:");
+		lblCode.setLayoutX(25);
+		lblCode.setLayoutY(117.5);
+		lblCode.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+		lblCode.setTextFill(Paint.valueOf("WHITE"));
+
+
+		shadowOn.setSpread(0.6);
+
+		//Create button to login to quiz
+		btnLogin = new Button("Submit");
+		btnLogin.setLayoutX(70);
+		btnLogin.setLayoutY(160);
+		btnLogin.setPrefWidth(100);
+		btnLogin.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+		btnLogin.setStyle(buttonStyle);
+		btnLogin.setOnMouseEntered(e -> btnLogin.setEffect(shadowOn));
+		btnLogin.setOnMouseExited(e -> btnLogin.setEffect(shadowOff));
+
+		pane.setBackground(background);
+		pane.getChildren().addAll(btnLogin, lblCode, codeField);
+
+
+		outerPane.setStyle(backgroundColor);
+		outerPane.getChildren().addAll(pane);
+
+		scene = new Scene(outerPane);
 
 	}
-	
+
 	public Scene getScene() {
 		return scene;
 	}
-	
+
 	public Pane getPane() {
 		return pane;
 	}
 
 	public TextField getEmailField() {
-		return emailField;
+		return codeField;
 	}
 
-	public PasswordField getPswdField() {
-		return pswdField;
+	public PasswordField getCodeField() {
+		return codeField;
 	}
 	public Button getBtnLogin() {
 		return btnLogin;
