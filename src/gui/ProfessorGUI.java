@@ -488,7 +488,7 @@ public class ProfessorGUI extends Application {
 				}
 
 			});
-
+			
 			sendPane.getChildren().addAll(sendOut, days, hours, mins, timeLimit, dayLabel, hourLabel, minLabel,
 					quizCode, qcode, rb1, rb2, rb3, feedback, cancel);
 			sendStage.getIcons().add(GSIcon);
