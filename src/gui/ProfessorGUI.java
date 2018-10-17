@@ -476,8 +476,7 @@ public class ProfessorGUI extends Application {
 						dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
 								+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
 								+ "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision"
-								+ ")" + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;"
-								+ "ALTER TABLE public.\"TestQuiz\"" + "OWNER to harris;" + "");
+								+ ")" + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
 					} else {
 						Label err = new Label("Missing Required Field");
 						err.setLayoutY(350);

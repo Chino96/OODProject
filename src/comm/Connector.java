@@ -21,7 +21,7 @@ public class Connector {
 
 	public Connector() {
 		port = "5432";
-		dbName = "/oodquiz1";
+		dbName = "/harrisgs";
 		user = "harris";
 		password = "professorgs";
 	}
