@@ -1,16 +1,16 @@
 Are you here today?
-A) Yes
-B) No
+Yes
+No
 
 What do you know about OOD so far?
 #
 
-How far along are you on your projects?
-A) Haven't started
-B) Have gotten basic requirements
-C) Started created our Class Diagrams
-D) Already started coding
-E) Need help
+How far along are you on your projects with your groups and when do you expect to finish?
+Haven't started
+Have gotten basic requirements
+Started created our Class Diagrams
+Already started coding
+Need help
 
 Do you feel like all of your team members are contributing enough your team members are contributing enough your team members are contributing enough?
 #

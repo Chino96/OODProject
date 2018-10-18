@@ -5,15 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class QuestionPages {
 
@@ -23,7 +21,7 @@ public class QuestionPages {
 		//use Question object to store questions and answers
 		ArrayList<Question> questions;
 		ArrayList<String> answers;
-		
+		ArrayList<String> questionNum;
 		//list of buttons
 		ArrayList<RadioButton> answerBtnList;
 		
@@ -35,10 +33,11 @@ public class QuestionPages {
 
 		//previous button
 
-		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3px; -fx-border-radius: 20px; -fx-background-insets: 2";
+		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
+	    String buttonHoverStyle = "-fx-base: #957D3F; -fx-background-radius: 25px; -fx-border-color: #FFFFFF ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
 		String backgroundColor = "-fx-background-color: #041E60";
 
-		private double paneWidth = 500;
+		private double paneWidth = 700;
 		private double paneHeight = 400;
 		int count = 0;
 		int lineLength = 0;
@@ -57,6 +56,7 @@ public class QuestionPages {
 			answers = new ArrayList<>();
 			answerBtnList = new ArrayList<>();
 			questions = new ArrayList<>();
+			questionNum = new ArrayList<>();
 
 			shadowOn.setSpread(0.7);
 
@@ -67,8 +67,8 @@ public class QuestionPages {
 			btnNext.setLayoutY(paneHeight - 55);
 			btnNext.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 			btnNext.setStyle(buttonStyle);
-			btnNext.setOnMouseEntered(e -> btnNext.setEffect(shadowOn));
-			btnNext.setOnMouseExited(e -> btnNext.setEffect(shadowOff));
+			btnNext.setOnMouseEntered(e -> btnNext.setStyle(buttonHoverStyle));
+			btnNext.setOnMouseExited(e -> btnNext.setStyle(buttonStyle));
 			
 			//read document when instantiated 
 			readDocument();
@@ -81,7 +81,7 @@ public class QuestionPages {
 			
 			//string to hold value of line read
 			String line;
-
+			int questionLength = 0;
 
 			//catch file not found exceptions
 			try {
@@ -98,7 +98,9 @@ public class QuestionPages {
 						//Increment count for question number
 						count++;
 						//add new question to question arraylist
-						questions.add(new Question("Question " + count + ":\n" + line));
+						questions.add(new Question(count + " )  " + line));
+
+
 					}
 					//if the line has no question mark and isn't a blank line
 					else if (!line.contains("?") && !line.isEmpty()) {
@@ -129,41 +131,58 @@ public class QuestionPages {
 			//create label for question
 			Label question = new Label(questions.get(index).question);
 			question.setTextFill(Color.WHITE);
-			question.setPrefWidth(paneWidth-25);
+			question.setFont(Font.font("Arial" , FontWeight.BOLD, 16));
+			question.setPrefWidth(paneWidth-30);
 			question.setLayoutX(15);
 			question.setLayoutY(15);
 			question.setWrapText(true);
-			
+
 			//add question to pane
 			pane.getChildren().add(question);
 
 			//create array of radio buttons  
 			RadioButton[] rdioAnswer = new RadioButton[questions.get(index).answers.size()];
 			
-			double yPos = question.getLayoutY() + 60;
-			
+			double yPos = question.getLayoutY() + 90;
+
+			Text answer = new Text("A) ");
+
+			ToggleGroup group = new ToggleGroup();
 			//loop through all answers and create radio buttons
 			for (int i = 0; i <= rdioAnswer.length - 1; i++) {
-				
+
+				switch(i){
+					case 1: answer.setText("B) "); break;
+					case 2: answer.setText("C) "); break;
+					case 3: answer.setText("D) "); break;
+					case 4: answer.setText("E) "); break;
+					case 5: answer.setText("F) "); break;
+				}
+				answer.setFont(Font.font("Arial", 20));
 				// if the answer is a # create a text area
 				if (questions.get(index).answers.get(i).equals("#")) {
 					TextArea shortAnswer = new TextArea();
 					shortAnswer.setWrapText(true);
 					shortAnswer.setLayoutX(30);
-					shortAnswer.setLayoutY(yPos+30);
+					shortAnswer.setLayoutY(yPos);
 					shortAnswer.setPrefWidth(paneWidth - 60);
 					shortAnswer.setPrefHeight(paneHeight - 180);
-					shortAnswer.setStyle(buttonStyle +"; -fx-background-radius: 0px; -fx-border-radius: 0px");
+					shortAnswer.setStyle(buttonStyle +"-fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-width: 5px;");
 					pane.getChildren().add(shortAnswer);
 				} else {
+
 					//otherwise create a radio button for the answer
 					rdioAnswer[i] = new RadioButton();
-					rdioAnswer[i].setText(questions.get(index).answers.get(i));
+					rdioAnswer[i].setText(answer.getText() + questions.get(index).answers.get(i));
 					rdioAnswer[i].setLayoutX(question.getLayoutX() + 20);
 					rdioAnswer[i].setLayoutY(yPos);
 					rdioAnswer[i].setTextFill(Color.WHITE);;
+					rdioAnswer[i].setFont(Font.font("Arial", 14));
+
+
+					rdioAnswer[i].setToggleGroup(group);
 					pane.getChildren().add(rdioAnswer[i]);
-					yPos += 25;
+					yPos += 30;
 				}
 			}
 			//add new scene using the pane

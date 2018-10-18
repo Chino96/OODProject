@@ -193,7 +193,7 @@ public class ProfessorGUI extends Application {
 		questionBox.setAlignment(Pos.CENTER);
 		questionBox.setLayoutX(s.getWidth() / 2 - 135);
 		questionBox.setLayoutY(160);
-		questionBox.setSpacing(5);
+		questionBox.setSpacing(3);
 
 		VBox emailBox = new VBox();
 		emailBox.setPrefWidth(email.getPrefWidth());
@@ -201,7 +201,7 @@ public class ProfessorGUI extends Application {
 		emailBox.setAlignment(Pos.CENTER);
 		emailBox.setLayoutX(s.getWidth() / 2 + 15);
 		emailBox.setLayoutY(160);
-		emailBox.setSpacing(5);
+		emailBox.setSpacing(3);
 
 		// Open help window
 		btnHelp.setOnAction(event -> {

@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.geometry.Side;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -29,7 +30,8 @@ public class LoginPage {
 		pane = new Pane();
 		Pane outerPane = new Pane();
 
-		String buttonStyle = " -fx-background-radius: 25px; -fx-background-insets: 0";
+		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
+		String buttonHoverStyle = "-fx-base: #957D3F; -fx-background-radius: 25px; -fx-border-color: #FFFFFF ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
 		String backgroundColor = "-fx-background-color: #041E60";
 
 		//Create Georgia Southern background image in pane
@@ -46,6 +48,7 @@ public class LoginPage {
 		codeField.setLayoutX(113);
 		codeField.setLayoutY(115);
 		codeField.setPrefWidth(100);
+		codeField.setAlignment(Pos.CENTER);
 
 		codeField.setStyle(buttonStyle);
 		codeField.setTextFormatter(new TextFormatter<String>((TextFormatter.Change change) -> {
@@ -74,8 +77,8 @@ public class LoginPage {
 		btnLogin.setPrefWidth(100);
 		btnLogin.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		btnLogin.setStyle(buttonStyle);
-		btnLogin.setOnMouseEntered(e -> btnLogin.setEffect(shadowOn));
-		btnLogin.setOnMouseExited(e -> btnLogin.setEffect(shadowOff));
+		btnLogin.setOnMouseEntered(e -> btnLogin.setStyle(buttonHoverStyle));
+		btnLogin.setOnMouseExited(e -> btnLogin.setStyle(buttonStyle));
 		
 		codeField.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.ENTER) {
