@@ -23,18 +23,30 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import comm.DataBase;
+import comm.EmailComm;
 
 public class ProfessorGUI extends Application {
 
-	DataBase dataBase = new DataBase();
+	private DataBase dataBase = new DataBase();
+
+	private String emailList = "";
 
 	private File questionList;
-	private File emailList;
+	private File emailFile;
 
 	// Window style
 	private String backgroundColor = "-fx-background-color: #041E60";
@@ -67,7 +79,8 @@ public class ProfessorGUI extends Application {
 		double bGroundWidth = 200;
 		double bGroundHeight = 112.5;
 
-		Image backGrd = new Image(getClass().getResourceAsStream("/gui/images/GSLogo.png"), bGroundWidth, bGroundHeight, true, true);
+		Image backGrd = new Image(getClass().getResourceAsStream("/gui/images/GSLogo.png"), bGroundWidth, bGroundHeight,
+				true, true);
 		Image help = new Image(getClass().getResourceAsStream("/gui/images/help.png"), 25, 25, false, true);
 
 		shadowOn.setSpread(0.7);
@@ -79,7 +92,8 @@ public class ProfessorGUI extends Application {
 		// Set size and location of background image
 		BackgroundSize backgroundSize = new BackgroundSize(bGroundWidth, bGroundHeight, false, false, false, false);
 		BackgroundPosition bPosition = new BackgroundPosition(Side.LEFT, hPosition, false, Side.TOP, 23.75, false);
-		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, bPosition, backgroundSize);
+		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+				bPosition, backgroundSize);
 		Background background = new Background(bGround);
 
 		p.setBackground(background);
@@ -318,10 +332,26 @@ public class ProfessorGUI extends Application {
 
 			if (file != null) {
 				chosenEmail.setText(file.getName());
-				emailList = file;
-			} else {
-				chosenEmail.setText(null);
+				emailFile = file;
 			}
+			String line;
+			int questionLength = 0;
+
+			try {
+				FileReader fileReader = new FileReader(emailFile);
+				BufferedReader txtReader = new BufferedReader(fileReader);
+
+				while ((line = txtReader.readLine()) != null) {
+					if (line.length() != 27) {
+						throw new Exception();
+					}
+					emailList += line + ",";
+				}
+				txtReader.close();
+			} catch (Exception e) {
+				chosenEmail.setTextFill(Color.RED);
+				chosenEmail.setText("Improper Format");
+			}			
 		});// end email.setOnAction
 
 		reports.setOnAction(event -> {
@@ -343,34 +373,40 @@ public class ProfessorGUI extends Application {
 			sendPane.setStyle(backgroundColor);
 			sendStage.setTitle("Send Quiz");
 
-			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			// Boxes to set Start Time
-			ComboBox<String> startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
+			ComboBox<String> startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February",
+					"March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 			startMonth.setLayoutX(20);
 			startMonth.setPrefWidth(120);
 			startMonth.setLayoutY(82);
 			startMonth.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			ComboBox<Integer> startDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+			ComboBox<Integer> startDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+					10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
 			startDay.setLayoutX(startMonth.getLayoutX() + startMonth.getPrefWidth() + 5);
 			startDay.setPrefWidth(80);
 			startDay.setLayoutY(82);
 			startDay.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			ComboBox<Integer> startHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
+			ComboBox<Integer> startHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+					10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 			startHour.setLayoutX(startDay.getLayoutX() + startDay.getPrefWidth() + 5);
 			startHour.setPrefWidth(80);
 			startHour.setLayoutY(82);
 			startHour.setStyle(buttonStyle + "-fx-font-size: 14px");
-			
-			ComboBox<Integer> startMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
+
+			ComboBox<Integer> startMin = new ComboBox<>(
+					FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+							19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+							42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
 			startMin.setLayoutX(startHour.getLayoutX() + startHour.getPrefWidth() + 5);
 			startMin.setPrefWidth(80);
 			startMin.setLayoutY(82);
 			startMin.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			Label startTime = new Label("Start Time");
 			startTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
@@ -401,28 +437,34 @@ public class ProfessorGUI extends Application {
 			startTimeBox.getChildren().addAll(startTime);
 			startTimeBox.setAlignment(Pos.CENTER);
 
-			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			// Boxes to set End Time
-			ComboBox<String> endMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
+			ComboBox<String> endMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March",
+					"April", "May", "June", "July", "August", "September", "October", "November", "December"));
 			endMonth.setLayoutX(20);
 			endMonth.setLayoutY(200);
 			endMonth.setPrefWidth(120);
 			endMonth.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			ComboBox<Integer> endDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+			ComboBox<Integer> endDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+					10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
 			endDay.setLayoutX(endMonth.getLayoutX() + endMonth.getPrefWidth() + 5);
 			endDay.setLayoutY(endMonth.getLayoutY());
 			endDay.setPrefWidth(80);
 			endDay.setStyle(buttonStyle + "-fx-font-size: 14px");
 
-			ComboBox<Integer> endHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
+			ComboBox<Integer> endHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+					10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 			endHour.setLayoutX(endDay.getLayoutX() + endDay.getPrefWidth() + 5);
 			endHour.setLayoutY(endMonth.getLayoutY());
 			endHour.setPrefWidth(80);
 			endHour.setStyle(buttonStyle + "-fx-font-size: 14px");
-			
-			ComboBox<Integer> endMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
+
+			ComboBox<Integer> endMin = new ComboBox<>(
+					FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+							19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+							42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
 			endMin.setLayoutX(endHour.getLayoutX() + endHour.getPrefWidth() + 5);
 			endMin.setPrefWidth(80);
 			endMin.setLayoutY(endMonth.getLayoutY());
@@ -449,17 +491,15 @@ public class ProfessorGUI extends Application {
 			endHourLabel.setLayoutY(endHour.getLayoutY() - 22);
 			endHourLabel.setFont(Font.font("Arial", 14));
 			endHourLabel.setTextFill(Paint.valueOf("#FFFFFF"));
-			
-			
 
 			VBox endTimeBox = new VBox();
 			endTimeBox.setPrefWidth(endMin.getLayoutX() + endMin.getPrefWidth() - endMonth.getLayoutX());
 			endTimeBox.setLayoutX(endMonth.getLayoutX());
-			endTimeBox.setLayoutY(endMonth.getLayoutY()-62);
+			endTimeBox.setLayoutY(endMonth.getLayoutY() - 62);
 			endTimeBox.getChildren().addAll(endTime);
 			endTimeBox.setAlignment(Pos.CENTER);
 
-			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			Scene sendScene = new Scene(sendPane, 800, 340);
 
@@ -468,7 +508,7 @@ public class ProfessorGUI extends Application {
 			qcode.setTextFill(Paint.valueOf("#FFFFFF"));
 
 			VBox qBox = new VBox();
-			qBox.setPrefWidth((startMin.getPrefWidth() + startMin.getLayoutX())-startMonth.getLayoutX());
+			qBox.setPrefWidth((startMin.getPrefWidth() + startMin.getLayoutX()) - startMonth.getLayoutX());
 			qBox.setLayoutX(startMin.getPrefWidth() + startMin.getLayoutX());
 			qBox.setLayoutY(20);
 			qBox.setSpacing(5);
@@ -480,7 +520,7 @@ public class ProfessorGUI extends Application {
 			quizCode.setPrefWidth(130);
 			quizCode.setMaxHeight(50);
 			quizCode.setAlignment(Pos.CENTER);
-			quizCode.setLayoutX((qBox.getPrefWidth()-quizCode.getPrefWidth())/2 + qBox.getLayoutX());
+			quizCode.setLayoutX((qBox.getPrefWidth() - quizCode.getPrefWidth()) / 2 + qBox.getLayoutX());
 			quizCode.setLayoutY(qBox.getLayoutY() + 45);
 			quizCode.setTextFormatter(new TextFormatter<String>((Change change) -> {
 				String newText = change.getControlNewText();
@@ -491,7 +531,7 @@ public class ProfessorGUI extends Application {
 				}
 			}));
 
-			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			// FeedBack Options
 			Label feedback = new Label("Set Feedback Option");
@@ -523,20 +563,20 @@ public class ProfessorGUI extends Application {
 			VBox rBox = new VBox();
 			rBox.setPrefWidth(310);
 			rBox.setLayoutX(feedbackBox.getLayoutX());
-			rBox.setLayoutY(feedbackBox.getLayoutY()+40);
+			rBox.setLayoutY(feedbackBox.getLayoutY() + 40);
 			rBox.setAlignment(Pos.TOP_LEFT);
 			rBox.setSpacing(10);
 			rBox.getChildren().addAll(rb1, rb2, rb3);
-			
+
 			CheckBox cb1 = new CheckBox("Randomize Questions");
 			CheckBox cb2 = new CheckBox("Randomize Answer Choices");
-			
+
 			cb1.setLayoutX(33);
 			cb1.setLayoutY(260);
 			cb1.setTextFill(Color.WHITE);
 			cb1.setFont(Font.font("Arial", 13));
-			
-			cb2.setLayoutX(cb1.getLayoutX()+160);
+
+			cb2.setLayoutX(cb1.getLayoutX() + 160);
 			cb2.setLayoutY(cb1.getLayoutY());
 			cb2.setTextFill(Color.WHITE);
 			cb2.setFont(Font.font("Arial", 13));
@@ -553,12 +593,10 @@ public class ProfessorGUI extends Application {
 			rb2.setTextFill(Paint.valueOf("#FFFFFF"));
 			rb3.setTextFill(Paint.valueOf("#FFFFFF"));
 
-
-
 			// Button to send out quiz link
 			Button sendOut = new Button("Send");
-			sendOut.setLayoutX(sendScene.getWidth()- 100);
-			sendOut.setLayoutY(sendScene.getHeight()- 55);
+			sendOut.setLayoutX(sendScene.getWidth() - 100);
+			sendOut.setLayoutY(sendScene.getHeight() - 55);
 			sendOut.setPrefWidth(80);
 			sendOut.setFont(Font.font("Arial", FontWeight.BOLD, 18));
 			sendOut.setStyle(buttonStyle);
@@ -569,13 +607,16 @@ public class ProfessorGUI extends Application {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					if (emailList != null && questionList != null) {
+					if (emailFile != null && questionList != null) {
+						EmailComm eCom = new EmailComm();
+						eCom.sendEmails("chino.s.ugwumadu@gmail.com", "busybee1", "This is a test", "We in this bitch", emailList);
+						/*
 						dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
 								+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
 								+ "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision"
-								+ ")" + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
-					}
-					else {
+								+ ")" + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");*/
+
+					} else {
 						Label err = new Label("Missing Required Field");
 						err.setLayoutY(295);
 						err.setLayoutX(100);
@@ -589,7 +630,7 @@ public class ProfessorGUI extends Application {
 			// Button gives option to return to last stage
 			Button cancel = new Button("Cancel");
 			cancel.setLayoutX(sendOut.getLayoutX() - 110);
-			cancel.setLayoutY(sendScene.getHeight()- 55);
+			cancel.setLayoutY(sendScene.getHeight() - 55);
 			cancel.setPrefWidth(95);
 			cancel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
 			cancel.setStyle(buttonStyle);
@@ -600,8 +641,9 @@ public class ProfessorGUI extends Application {
 				primaryStage.show();
 			});
 
-
-			sendPane.getChildren().addAll(cb1,cb2,sendOut, startMonth, startDay, startHour, startMin, feedbackBox, dayLabel, hourLabel, monthLabel, endDayLabel, endHourLabel, endMonthLabel, qBox, quizCode, rBox, startTimeBox, endTimeBox, cancel, endMonth, endDay, endHour,endMin);
+			sendPane.getChildren().addAll(cb1, cb2, sendOut, startMonth, startDay, startHour, startMin, feedbackBox,
+					dayLabel, hourLabel, monthLabel, endDayLabel, endHourLabel, endMonthLabel, qBox, quizCode, rBox,
+					startTimeBox, endTimeBox, cancel, endMonth, endDay, endHour, endMin);
 			sendStage.getIcons().add(GSIcon);
 			sendStage.setScene(sendScene);
 			sendStage.show();
@@ -617,4 +659,5 @@ public class ProfessorGUI extends Application {
 
 	}// end start
 
+	
 }
