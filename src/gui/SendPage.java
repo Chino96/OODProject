@@ -68,31 +68,21 @@ public class SendPage {
 		rb2 = new RadioButton("Provide feedback with only incorrect answers.");
 		rb3 = new RadioButton("Provide feeedback with only correct answers.");
 
-		startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May",
-				"June", "July", "August", "September", "October", "November", "December"));
+		startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 
-		startDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-				15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+		startDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
 
-		startHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-				15, 16, 17, 18, 19, 20, 21, 22, 23));
+		startHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
-		startMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-				15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-				41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
+		startMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
 
-		endMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May",
-				"June", "July", "August", "September", "October", "November", "December"));
+		endMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 
-		endDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-				16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+		endDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
 
-		endHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-				16, 17, 18, 19, 20, 21, 22, 23));
+		endHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
-		endMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-				16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
-				42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
+		endMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
 
 		buildSendPage(sendStage, parentStage, sendPane, sendScene);
 	}
@@ -106,41 +96,57 @@ public class SendPage {
 		startMonth.setPrefWidth(120);
 		startMonth.setLayoutY(82);
 		startMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		startMonth.setOnMouseEntered(e -> startMonth.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		startMonth.setOnMouseExited(e -> startMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		startDay.setLayoutX(startMonth.getLayoutX() + startMonth.getPrefWidth() + 5);
-		startDay.setPrefWidth(80);
+		startDay.setPrefWidth(90);
 		startDay.setLayoutY(82);
 		startDay.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		startDay.setOnMouseEntered(e -> startDay.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		startDay.setOnMouseExited(e -> startDay.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		startHour.setLayoutX(startDay.getLayoutX() + startDay.getPrefWidth() + 5);
-		startHour.setPrefWidth(80);
+		startHour.setPrefWidth(90);
 		startHour.setLayoutY(82);
 		startHour.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		startHour.setOnMouseEntered(e -> startHour.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		startHour.setOnMouseExited(e -> startHour.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		startMin.setLayoutX(startHour.getLayoutX() + startHour.getPrefWidth() + 5);
 		startMin.setPrefWidth(80);
 		startMin.setLayoutY(82);
 		startMin.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		startMin.setOnMouseEntered(e -> startMin.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		startMin.setOnMouseExited(e -> startMin.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		endMonth.setLayoutX(20);
 		endMonth.setLayoutY(200);
 		endMonth.setPrefWidth(120);
 		endMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		endMonth.setOnMouseEntered(e -> endMonth.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		endMonth.setOnMouseExited(e -> endMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		endDay.setLayoutX(endMonth.getLayoutX() + endMonth.getPrefWidth() + 5);
 		endDay.setLayoutY(endMonth.getLayoutY());
 		endDay.setPrefWidth(80);
 		endDay.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		endDay.setOnMouseEntered(e -> endDay.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		endDay.setOnMouseExited(e -> endDay.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		endHour.setLayoutX(endDay.getLayoutX() + endDay.getPrefWidth() + 5);
 		endHour.setLayoutY(endMonth.getLayoutY());
 		endHour.setPrefWidth(80);
 		endHour.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		endHour.setOnMouseEntered(e -> endHour.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		endHour.setOnMouseExited(e -> endHour.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		endMin.setLayoutX(endHour.getLayoutX() + endHour.getPrefWidth() + 5);
 		endMin.setPrefWidth(80);
 		endMin.setLayoutY(endMonth.getLayoutY());
 		endMin.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
+		endMin.setOnMouseEntered(e -> endMin.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
+		endMin.setOnMouseExited(e -> endMin.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		Label startTime = new Label("Start Time");
 		startTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
@@ -218,6 +224,7 @@ public class SendPage {
 		quizCode.setAlignment(Pos.CENTER);
 		quizCode.setLayoutX((qBox.getPrefWidth() - quizCode.getPrefWidth()) / 2 + qBox.getLayoutX());
 		quizCode.setLayoutY(qBox.getLayoutY() + 45);
+		quizCode.setPromptText("1234");
 		quizCode.setTextFormatter(new TextFormatter<String>((Change change) -> {
 			String newText = change.getControlNewText();
 			if (newText.length() > 4) {
@@ -286,6 +293,7 @@ public class SendPage {
 		send.setStyle(Styles.BUTTONSTYLE);
 		send.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
 		send.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
+
 		cancel.setLayoutX(send.getLayoutX() - 110);
 		cancel.setLayoutY(sendScene.getHeight() - 55);
 		cancel.setPrefWidth(95);

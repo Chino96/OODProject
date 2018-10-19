@@ -21,8 +21,8 @@ public class Styles {
 	
 	public static final Image GSIcon = new Image("/gui/images/GSIcon.png");
 	public static final String BACKGROUNDCOLOR = "-fx-background-color: #041E60";
-	public static final String BUTTONSTYLE = "-fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
-	public static final String BUTTONHOVER = "-fx-base: #957D3F; -fx-background-radius: 25px; -fx-border-color: #FFFFFF ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
+	public static final String BUTTONSTYLE = "-fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 4.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
+	public static final String BUTTONHOVER = "-fx-base: #957D3F; -fx-background-radius: 25px; -fx-border-color: #FFFFFF ; -fx-border-width: 4.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
 	public static final Background BACKGROUNDIMAGE = new Background(bGround);
 	public static final Image HELPICON = new Image("/gui/images/help.png", 25, 25, false, true);
 

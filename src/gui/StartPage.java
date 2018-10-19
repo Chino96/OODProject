@@ -29,16 +29,31 @@ public class StartPage {
 
 	private Label lblQFile;
 	private Label lblEFile;
+	private Label email1;
+	private Label email2;
+	private Label question1;
+	private Label question2;
+	private Label send1;
+	private Label send2;
+	private Label report1;
+	private Label report2;
+
+	private VBox emailText;
+	private VBox questionText;
+	private VBox reportText;
+	private VBox sendText;
+	private VBox questionBox;
+	private VBox emailBox;
 
 	public StartPage(Stage tStage) {
 		pane = new Pane();
 		outerPane = new Pane();
 		scene = new Scene(outerPane, 400, 335);
 		
-		btnQuestion = new Button("   Upload\nQuestions");
-		btnEmail = new Button(" Upload\n Emails");
-		btnReports = new Button("  View\nReports");
-		btnSend = new Button("Send Out\n    Quiz");
+		btnQuestion = new Button();
+		btnEmail = new Button();
+		btnReports = new Button();
+		btnSend = new Button();
 		btnHelp = new Button();
 		
 		lblQFile = new Label();
@@ -54,17 +69,57 @@ public class StartPage {
 		outerPane.setStyle(Styles.BACKGROUNDCOLOR);
 		pane.setBackground(Styles.BACKGROUNDIMAGE);
 
+
+		//Labels for buttons to be put inside a VBox
+		email1 = new Label("Upload");
+		email2 = new Label("Emails");
+
+		question1 = new Label("Upload");
+		question2 = new Label("Questions");
+
+		send1 = new Label("Send Out");
+		send2 = new Label("Quiz");
+
+		report1 = new Label("View");
+		report2 = new Label("Reports");
+
+
+		//VBoxes for aligning labels correctly within buttons
+		questionText = new VBox();
+		questionText.setAlignment(Pos.CENTER);
+		questionText.setStyle("-fx-font: 16px Arial; -fx-font-weight: bold");
+		questionText.getChildren().addAll(question1, question2);
+
+		emailText = new VBox();
+		emailText.setAlignment(Pos.CENTER);
+		emailText.setStyle("-fx-font: 16px Arial; -fx-font-weight: bold");
+		emailText.getChildren().addAll(email1, email2);
+
+		sendText = new VBox();
+		sendText.setAlignment(Pos.CENTER);
+		sendText.setStyle("-fx-font: 16px Arial; -fx-font-weight: bold");
+		sendText.getChildren().addAll(send1, send2);
+
+		reportText = new VBox();
+		reportText.setAlignment(Pos.CENTER);
+		reportText.setStyle("-fx-font: 16px Arial; -fx-font-weight: bold");
+		reportText.getChildren().addAll(report1, report2);
+
 		btnQuestion.setLayoutX(scene.getWidth() / 2 - 135);
 		btnQuestion.setLayoutY(160);
+		btnQuestion.setGraphic(emailText);
 
 		btnEmail.setLayoutX(scene.getWidth() / 2 + 15);
 		btnEmail.setLayoutY(160);
-
-		btnReports.setLayoutX(scene.getWidth() / 2 - 135);
-		btnReports.setLayoutY(240);
+		btnEmail.setGraphic(questionText);
 
 		btnSend.setLayoutX(scene.getWidth() / 2 + 15);
 		btnSend.setLayoutY(240);
+		btnSend.setGraphic(sendText);
+
+		btnReports.setLayoutX(scene.getWidth() / 2 - 135);
+		btnReports.setLayoutY(240);
+		btnReports.setGraphic(reportText);
 
 		btnHelp.setLayoutX(0);
 		btnHelp.setLayoutY(0);
@@ -76,7 +131,6 @@ public class StartPage {
 		lblEFile.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		btnQuestion.setPrefWidth(120);
-		btnQuestion.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		btnQuestion.setStyle(Styles.BUTTONSTYLE);
 		btnQuestion.setOnMouseEntered(e -> btnQuestion.setStyle(Styles.BUTTONHOVER));
 		btnQuestion.setOnMouseExited(e -> btnQuestion.setStyle(Styles.BUTTONSTYLE));
@@ -99,6 +153,8 @@ public class StartPage {
 		btnSend.setOnMouseEntered(e -> btnSend.setStyle(Styles.BUTTONHOVER));
 		btnSend.setOnMouseExited(e -> btnSend.setStyle(Styles.BUTTONSTYLE));
 
+
+		Styles.SHADOWON.setSpread(0.7);
 		btnHelp.setGraphic(new ImageView(Styles.HELPICON));
 		btnHelp.setStyle("-fx-background-color: transparent");
 		btnHelp.setTooltip(new Tooltip("Text File Format Help"));
@@ -108,7 +164,7 @@ public class StartPage {
 		btnHelp.setOnMouseReleased(e -> btnHelp.setStyle("-fx-background-color: transparent; -fx-padding: 5 5 5 5;"));
 
 		// Wrap Question and Email buttons/labels so labels stay centered under buttons
-		VBox questionBox = new VBox();
+		questionBox = new VBox();
 		questionBox.setPrefWidth(btnQuestion.getPrefWidth());
 		questionBox.getChildren().addAll(btnQuestion, lblQFile);
 		questionBox.setAlignment(Pos.CENTER);
@@ -116,7 +172,7 @@ public class StartPage {
 		questionBox.setLayoutY(160);
 		questionBox.setSpacing(3);
 
-		VBox emailBox = new VBox();
+		emailBox = new VBox();
 		emailBox.setPrefWidth(btnEmail.getPrefWidth());
 		emailBox.getChildren().addAll(btnEmail, lblEFile);
 		emailBox.setAlignment(Pos.CENTER);
