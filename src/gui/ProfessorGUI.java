@@ -609,7 +609,7 @@ public class ProfessorGUI extends Application {
 				public void handle(ActionEvent arg0) {
 					if (emailFile != null && questionList != null) {
 						EmailComm eCom = new EmailComm();
-						eCom.sendEmails("chino.s.ugwumadu@gmail.com", "busybee1", "This is a test", "We in this bitch", emailList);
+						eCom.sendEmails("xxxxxx", "xxxxxx", "This is a test", "We in this bitch", emailList);
 						/*
 						dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
 								+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
