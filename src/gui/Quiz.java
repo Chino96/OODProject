@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
-public class EZQuiz extends Application{
+public class Quiz extends Application{
 
 	private int pageNum = 0;
 
