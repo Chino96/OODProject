@@ -608,8 +608,65 @@ public class ProfessorGUI extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					if (emailFile != null && questionList != null) {
-						EmailComm eCom = new EmailComm();
-						eCom.sendEmails("xxxxxx", "xxxxxx", "This is a test", "We in this bitch", emailList);
+						Stage verification = new Stage();
+						Pane verify = new Pane();
+						verify.setStyle(backgroundColor);
+						verification.setTitle("Verification");
+						Scene veriScene = new Scene(verify, 300, 300);
+						
+						TextField emailField = new TextField();
+						emailField.setStyle(buttonStyle + "-fx-font-size: 16px; -fx-font-weight: bold;");
+						emailField.setPrefWidth(290);
+						emailField.setMaxHeight(20);
+						emailField.setLayoutX(5);
+						emailField.setLayoutY(80);
+						emailField.setAlignment(Pos.CENTER);
+						emailField.setPromptText("name@email.com");
+						emailField.getText();
+						
+						PasswordField passField = new PasswordField();
+						passField.setStyle(buttonStyle + "-fx-font-size: 16px; -fx-font-weight: bold;");
+						passField.setPrefWidth(290);
+						passField.setMaxHeight(20);
+						passField.setLayoutX(5);
+						passField.setLayoutY(165);
+						passField.setAlignment(Pos.CENTER);
+						
+						
+						Label emailLabel = new Label("Email:");
+						emailLabel.setFont(Font.font("Arial", 18));
+						emailLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+						emailLabel.setLayoutX(15);
+						emailLabel.setLayoutY(55);
+						
+						Label passLabel = new Label("Password:");
+						passLabel.setFont(Font.font("Arial", 18));
+						passLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+						passLabel.setLayoutX(15);
+						passLabel.setLayoutY(140);
+						
+						Button send2 = new Button("Send");
+						send2.setLayoutX(verify.getWidth() - 100);
+						send2.setLayoutY(verify.getHeight() - 55);
+						send2.setPrefWidth(80);
+						send2.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+						send2.setStyle(buttonStyle);
+						send2.setOnMouseEntered(e -> send2.setStyle(buttonHoverStyle));
+						send2.setOnMouseExited(e -> send2.setStyle(buttonStyle));
+						
+						verify.getChildren().addAll(emailField,emailLabel,passField,passLabel,send2);
+						verification.getIcons().add(GSIcon);
+						verification.setScene(veriScene);
+						verification.show();
+						
+						send2.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								EmailComm eCom = new EmailComm();
+								eCom.sendEmails(emailField.getText(), passField.getText(), "This is a test", "We in this bitch", emailList);
+								
+							}});
 						/*
 						dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
 								+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
