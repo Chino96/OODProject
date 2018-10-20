@@ -123,7 +123,7 @@ public class ProfessorGUI extends Application {
 		startPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				sendPage.showSendPage();
+					sendPage.showSendPage();
 			}
 		});// end send.setOnAction
 
@@ -131,7 +131,12 @@ public class ProfessorGUI extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				vPage.showVerificationPage();
+				if(emailFile == null || questionList == null){
+					sendPage.setErrorLabel();
+				}
+				else{
+					vPage.showVerificationPage();
+				}
 			}
 
 		});

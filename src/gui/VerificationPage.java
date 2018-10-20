@@ -80,7 +80,6 @@ public class VerificationPage {
 		stage.show();
 	}
 
-
 	public TextField getEmailField() {
 		return emailField;
 	}

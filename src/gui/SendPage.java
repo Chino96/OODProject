@@ -39,7 +39,6 @@ public class SendPage {
 	private ComboBox<Integer> endMin;
 
 	private Button send;
-
 	private Button cancel;
 
 	private RadioButton rb1;
@@ -48,6 +47,8 @@ public class SendPage {
 
 	private CheckBox cb1;
 	private CheckBox cb2;
+
+	private Label errorLabel;
 
 	private ToggleGroup group = new ToggleGroup();
 
@@ -70,7 +71,7 @@ public class SendPage {
 
 		startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 
-		startDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+		startDay = new ComboBox<>(FXCollections.observableArrayList( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
 
 		startHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
@@ -78,7 +79,7 @@ public class SendPage {
 
 		endMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 
-		endDay = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
+		endDay = new ComboBox<>(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31));
 
 		endHour = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
@@ -93,21 +94,21 @@ public class SendPage {
 		sendScene = new Scene(sendPane, 800, 340);
 
 		startMonth.setLayoutX(20);
-		startMonth.setPrefWidth(120);
+		startMonth.setPrefWidth(130);
 		startMonth.setLayoutY(82);
 		startMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
 		startMonth.setOnMouseEntered(e -> startMonth.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
 		startMonth.setOnMouseExited(e -> startMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		startDay.setLayoutX(startMonth.getLayoutX() + startMonth.getPrefWidth() + 5);
-		startDay.setPrefWidth(90);
+		startDay.setPrefWidth(80);
 		startDay.setLayoutY(82);
 		startDay.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
 		startDay.setOnMouseEntered(e -> startDay.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
 		startDay.setOnMouseExited(e -> startDay.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
 
 		startHour.setLayoutX(startDay.getLayoutX() + startDay.getPrefWidth() + 5);
-		startHour.setPrefWidth(90);
+		startHour.setPrefWidth(80);
 		startHour.setLayoutY(82);
 		startHour.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
 		startHour.setOnMouseEntered(e -> startHour.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
@@ -122,7 +123,7 @@ public class SendPage {
 
 		endMonth.setLayoutX(20);
 		endMonth.setLayoutY(200);
-		endMonth.setPrefWidth(120);
+		endMonth.setPrefWidth(130);
 		endMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px");
 		endMonth.setOnMouseEntered(e -> endMonth.setStyle(Styles.BUTTONHOVER + "-fx-font-size: 14px"));
 		endMonth.setOnMouseExited(e -> endMonth.setStyle(Styles.BUTTONSTYLE + "-fx-font-size: 14px"));
@@ -152,23 +153,29 @@ public class SendPage {
 		startTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 		startTime.setTextFill(Paint.valueOf("#FFFFFF"));
 
-		Label monthLabel = new Label("Month:");
-		monthLabel.setLayoutX(startMonth.getLayoutX() + 10);
-		monthLabel.setLayoutY(60);
-		monthLabel.setFont(Font.font("Arial", 14));
-		monthLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+		Label startMonthLabel = new Label("Month:");
+		startMonthLabel.setLayoutX(startMonth.getLayoutX() + 10);
+		startMonthLabel.setLayoutY(startMonth.getLayoutY() - 20);
+		startMonthLabel.setFont(Font.font("Arial", 14));
+		startMonthLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
-		Label dayLabel = new Label("Day:");
-		dayLabel.setLayoutX(startDay.getLayoutX() + 10);
-		dayLabel.setLayoutY(60);
-		dayLabel.setFont(Font.font("Arial", 14));
-		dayLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+		Label startDayLabel = new Label("Day:");
+		startDayLabel.setLayoutX(startDay.getLayoutX() + 10);
+		startDayLabel.setLayoutY(startDay.getLayoutY() - 20);
+		startDayLabel.setFont(Font.font("Arial", 14));
+		startDayLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
-		Label hourLabel = new Label("Hour:");
-		hourLabel.setLayoutX(startDay.getLayoutX() + startDay.getPrefWidth() + 15);
-		hourLabel.setLayoutY(60);
-		hourLabel.setFont(Font.font("Arial", 14));
-		hourLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+		Label startHourLabel = new Label("Hour:");
+		startHourLabel.setLayoutX(startHour.getLayoutX() + 15);
+		startHourLabel.setLayoutY(startHour.getLayoutY() - 20);
+		startHourLabel.setFont(Font.font("Arial", 14));
+		startHourLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+
+		Label startMinLabel = new Label("Minute:");
+		startMinLabel.setLayoutX(startMin.getLayoutX() + 15);
+		startMinLabel.setLayoutY(startMin.getLayoutY() - 20);
+		startMinLabel.setFont(Font.font("Arial", 14));
+		startMinLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		VBox startTimeBox = new VBox();
 		startTimeBox.setPrefWidth(startMin.getLayoutX() + startMin.getPrefWidth() - startMonth.getLayoutX());
@@ -183,21 +190,28 @@ public class SendPage {
 
 		Label endMonthLabel = new Label("Month:");
 		endMonthLabel.setLayoutX(endMonth.getLayoutX() + 10);
-		endMonthLabel.setLayoutY(endMonth.getLayoutY() - 22);
+		endMonthLabel.setLayoutY(endMonth.getLayoutY() - 20);
 		endMonthLabel.setFont(Font.font("Arial", 14));
 		endMonthLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		Label endDayLabel = new Label("Day:");
 		endDayLabel.setLayoutX(endDay.getLayoutX() + 10);
-		endDayLabel.setLayoutY(endDay.getLayoutY() - 22);
+		endDayLabel.setLayoutY(endDay.getLayoutY() - 20);
 		endDayLabel.setFont(Font.font("Arial", 14));
 		endDayLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		Label endHourLabel = new Label("Hour:");
 		endHourLabel.setLayoutX(endHour.getLayoutX() + 10);
-		endHourLabel.setLayoutY(endHour.getLayoutY() - 22);
+		endHourLabel.setLayoutY(endHour.getLayoutY() - 20);
 		endHourLabel.setFont(Font.font("Arial", 14));
 		endHourLabel.setTextFill(Paint.valueOf("#FFFFFF"));
+
+
+		Label endMinLabel = new Label("Minute:");
+		endMinLabel.setLayoutX(endMin.getLayoutX() + 15);
+		endMinLabel.setLayoutY(endMin.getLayoutY() - 20);
+		endMinLabel.setFont(Font.font("Arial", 14));
+		endMinLabel.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		VBox endTimeBox = new VBox();
 		endTimeBox.setPrefWidth(endMin.getLayoutX() + endMin.getPrefWidth() - endMonth.getLayoutX());
@@ -269,6 +283,7 @@ public class SendPage {
 		cb1.setTextFill(Color.WHITE);
 		cb1.setFont(Font.font("Arial", 13));
 
+
 		cb2.setLayoutX(cb1.getLayoutX() + 160);
 		cb2.setLayoutY(cb1.getLayoutY());
 		cb2.setTextFill(Color.WHITE);
@@ -289,10 +304,15 @@ public class SendPage {
 		send.setLayoutX(sendScene.getWidth() - 100);
 		send.setLayoutY(sendScene.getHeight() - 55);
 		send.setPrefWidth(80);
-		send.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+		send.setFont(Font.font("Arial", FontWeight.BOLD,18));
 		send.setStyle(Styles.BUTTONSTYLE);
 		send.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
 		send.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
+
+		errorLabel = new Label();
+		errorLabel.setLayoutX(90);
+		errorLabel.setLayoutY(295);
+		errorLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
 		cancel.setLayoutX(send.getLayoutX() - 110);
 		cancel.setLayoutY(sendScene.getHeight() - 55);
@@ -302,13 +322,16 @@ public class SendPage {
 		cancel.setOnMouseEntered(e -> cancel.setStyle(Styles.BUTTONHOVER));
 		cancel.setOnMouseExited(e -> cancel.setStyle(Styles.BUTTONSTYLE));
 		cancel.setOnAction(event12 -> {
+			errorLabel.setText("");
 			sendStage.hide();
 			parentStage.show();
 		});
 
-		sendPane.getChildren().addAll(cb1, cb2, send, startMonth, startDay, startHour, startMin, feedbackBox, dayLabel,
-				hourLabel, monthLabel, endDayLabel, endHourLabel, endMonthLabel, qBox, quizCode, rBox, startTimeBox,
-				endTimeBox, cancel, endMonth, endDay, endHour, endMin);
+
+
+		sendPane.getChildren().addAll(cb1, cb2, send, startMonth, startDay, startHour, startMin, feedbackBox, startDayLabel,
+				startHourLabel, startMonthLabel, startMinLabel, endDayLabel, endHourLabel, endMonthLabel, endMinLabel, qBox, quizCode, rBox, startTimeBox,
+				endTimeBox, cancel, endMonth, endDay, endHour, endMin, errorLabel);
 		sendStage.getIcons().add(Styles.GSIcon);
 		sendStage.setScene(sendScene);
 	}
@@ -380,5 +403,10 @@ public class SendPage {
 
 	public TextField getQuizCode() {
 		return quizCode;
+	}
+
+	public void setErrorLabel() {
+		errorLabel.setText("Missing Required Files");
+		errorLabel.setTextFill(Color.RED);
 	}
 }
