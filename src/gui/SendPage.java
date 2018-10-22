@@ -341,36 +341,36 @@ public class SendPage {
 		this.parentStage.hide();
 	}
 
-	public ComboBox<String> getStartMonth() {
-		return startMonth;
+	public int getStartMonth() {
+		return startMonth.getSelectionModel().getSelectedIndex();
 	}
 
-	public ComboBox<Integer> getStartDay() {
-		return startDay;
+	public int getStartDay() {
+		return startDay.getValue();
 	}
 
-	public ComboBox<Integer> getStartHour() {
-		return startHour;
+	public int getStartHour() {
+		return startHour.getValue();
 	}
 
-	public ComboBox<Integer> getStartMin() {
-		return startMin;
+	public int getStartMin() {
+		return startMin.getValue();
 	}
 
-	public ComboBox<String> getEndMonth() {
-		return endMonth;
+	public int getEndMonth() {
+		return endMonth.getSelectionModel().getSelectedIndex();
 	}
 
-	public ComboBox<Integer> getEndDay() {
-		return endDay;
+	public int getEndDay() {
+		return endDay.getValue();
 	}
 
-	public ComboBox<Integer> getEndHour() {
-		return endHour;
+	public int getEndHour() {
+		return endHour.getValue();
 	}
 
-	public ComboBox<Integer> getEndMin() {
-		return endMin;
+	public int getEndMin() {
+		return endMin.getValue();
 	}
 
 	public Button getSend() {
@@ -408,5 +408,14 @@ public class SendPage {
 	public void setErrorLabel() {
 		errorLabel.setText("Missing Required Files");
 		errorLabel.setTextFill(Color.RED);
+	}
+
+	public void setTimeError(){
+		errorLabel.setText("Quiz Time Incorrect");
+		errorLabel.setTextFill(Color.RED);
+	}
+
+	public void resetErrorLabel() {
+		errorLabel.setText("");
 	}
 }
