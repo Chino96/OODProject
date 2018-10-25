@@ -177,7 +177,7 @@ public class ProfessorGUI extends Application {
             public void handle(ActionEvent event) {
                 EmailComm eCom = new EmailComm();
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), "This is a test",
-                        "We in this bitch", emailList);
+                        "This is a test for our Project", emailList);
 
                 dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
