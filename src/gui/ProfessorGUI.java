@@ -9,9 +9,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class ProfessorGUI extends Application {
 
@@ -61,7 +64,7 @@ public class ProfessorGUI extends Application {
                     questionList = file;
 
                 } else {
-                    startPage.getLblEFile().setText(null);
+                    startPage.getLblQFile().setText(null);
                 }
             }
         });// end question.setOnAction
@@ -110,7 +113,30 @@ public class ProfessorGUI extends Application {
                 fileChooser.setTitle("Open Reports File");
                 fileChooser.setInitialDirectory(new File(rDirectory));
                 fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+                               
+                //Remove the .txt from file name
+                String fileName = startPage.getLblEFile().getText();
+                fileName = fileName.substring(0, fileName.length()-4);
+                
+                //call create report
+                gradeReport.createGradeReportTxt(fileName);
+                try {
+                	//call append report
+					gradeReport.appendGradeReportTxt(fileName);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                
                 File file = fileChooser.showOpenDialog(reportStage);
+                Desktop openFile = Desktop.getDesktop();
+                if(file.exists())
+					try {
+						openFile.open(file);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
                 if (file != null) {
                     System.out.println(file.toString());
