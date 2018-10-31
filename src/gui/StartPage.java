@@ -71,11 +71,11 @@ public class StartPage {
 
 
 		//Labels for buttons to be put inside a VBox
-		email1 = new Label("Upload");
-		email2 = new Label("Emails");
-
 		question1 = new Label("Upload");
 		question2 = new Label("Questions");
+
+		email1 = new Label("Upload");
+		email2 = new Label("Emails");
 
 		send1 = new Label("Send Out");
 		send2 = new Label("Quiz");
@@ -107,11 +107,11 @@ public class StartPage {
 
 		btnQuestion.setLayoutX(scene.getWidth() / 2 - 135);
 		btnQuestion.setLayoutY(160);
-		btnQuestion.setGraphic(emailText);
+		btnQuestion.setGraphic(questionText);
 
 		btnEmail.setLayoutX(scene.getWidth() / 2 + 15);
 		btnEmail.setLayoutY(160);
-		btnEmail.setGraphic(questionText);
+		btnEmail.setGraphic(emailText);
 
 		btnSend.setLayoutX(scene.getWidth() / 2 + 15);
 		btnSend.setLayoutY(240);
@@ -178,7 +178,7 @@ public class StartPage {
 		emailBox.setAlignment(Pos.CENTER);
 		emailBox.setLayoutX(scene.getWidth() / 2 + 15);
 		emailBox.setLayoutY(160);
-		emailBox.setSpacing(3);
+		emailBox.setSpacing(1.5);
 
 		pane.getChildren().addAll(btnReports, btnSend, btnHelp, questionBox, emailBox);
 		outerPane.getChildren().add(pane);

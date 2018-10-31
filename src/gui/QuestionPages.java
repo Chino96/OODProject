@@ -41,8 +41,7 @@ public class QuestionPages {
 		private double paneHeight = 400;
 		int count = 0;
 		int lineLength = 0;
-		
-		// Adds shadow effect to buttons when hovered over
+
 		//Adds shadow effect to buttons when hovered over
 		private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
 		private Color colorOff = new Color(0.5, 0.5, 0.5, 0);
@@ -81,7 +80,8 @@ public class QuestionPages {
 			
 			//string to hold value of line read
 			String line;
-			int questionLength = 0;
+			String prevLine;
+			String currLine = "";
 
 			//catch file not found exceptions
 			try {
@@ -90,24 +90,26 @@ public class QuestionPages {
 				BufferedReader txtReader = new BufferedReader(fileReader);
 
 
+
 				//loop through every line of the file
 				while ((line = txtReader.readLine()) != null) {
-					
-					//line must contain a ? to be read as a question
-					if (line.contains("?")) {
+					prevLine = currLine;
+					currLine = line;
+
+					//Line before the question has to be blank to start a new question
+					if (prevLine.length() < 1) {
 						//Increment count for question number
 						count++;
 						//add new question to question arraylist
-						questions.add(new Question(count + " )  " + line));
+						questions.add(new Question(count + " )  " + currLine));
 
 
 					}
-					//if the line has no question mark and isn't a blank line
-					else if (!line.contains("?") && !line.isEmpty()) {
+					//If the previous line is not empty and current line is not empty, it will be added to answers
+					else if (currLine.length() > 1) {
 						//add the answer to the last question in question arraylist
-						questions.get(questions.size() - 1).answers.add(line);
+						questions.get(questions.size()-1).answers.add(currLine);
 					}
-
 				}
 				txtReader.close();
 			} catch (Exception e) {
@@ -160,7 +162,7 @@ public class QuestionPages {
 				}
 				answer.setFont(Font.font("Arial", 20));
 				// if the answer is a # create a text area
-				if (questions.get(index).answers.get(i).equals("#")) {
+				if (questions.get(index).answers.get(i).equals("##")) {
 					TextArea shortAnswer = new TextArea();
 					shortAnswer.setWrapText(true);
 					shortAnswer.setLayoutX(30);
