@@ -43,8 +43,6 @@ public class HelpPage {
 		ePane.setStyle(Styles.BACKGROUNDCOLOR);
 		qPane.setStyle(Styles.BACKGROUNDCOLOR);
 
-		scene = new Scene(pane, 1000, 460);
-
 		buildEmailPane(ePane);
 		buildQuestionPane(qPane);
 
@@ -76,7 +74,7 @@ public class HelpPage {
 		close.setPrefWidth(150);
 		close.setPrefHeight(30);
 		close.setLayoutX(30);
-		close.setLayoutY(413);
+		close.setLayoutY(emailView.getLayoutY()+ePane.getPrefHeight() + 10);
 		close.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		close.setStyle(Styles.BUTTONSTYLE);
 		close.setOnAction(event1 -> helpStage.hide());
@@ -100,6 +98,7 @@ public class HelpPage {
 		pane.setStyle(Styles.BACKGROUNDCOLOR);
 		pane.getChildren().addAll(ePane, qPane, close, questionView, legend, star);
 
+		scene = new Scene(pane, 1000, close.getLayoutY() + close.getPrefHeight() + 20);
 		stage.getIcons().add(Styles.GSIcon);
 		stage.setScene(scene);
 		stage.show();

@@ -82,6 +82,7 @@ public class ProfessorGUI extends Application {
 
                 if (file != null) {
                     startPage.getLblEFile().setText(file.getName());
+                    startPage.getLblEFile().setTextFill(Color.WHITE);
                     emailFile = file;
                 }
                 String line;
