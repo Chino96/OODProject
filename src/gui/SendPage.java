@@ -47,6 +47,8 @@ public class SendPage {
 
 	private CheckBox cb1;
 	private CheckBox cb2;
+	private CheckBox cb3;
+	
 
 	private Label errorLabel;
 
@@ -64,6 +66,8 @@ public class SendPage {
 
 		cb1 = new CheckBox("Randomize Questions");
 		cb2 = new CheckBox("Randomize Answer Choices");
+		cb3 = new CheckBox("In Class Quiz");
+		
 
 		rb1 = new RadioButton("Provide feedback with all questions.");
 		rb2 = new RadioButton("Provide feedback with only incorrect answers.");
@@ -91,7 +95,7 @@ public class SendPage {
 	public void buildSendPage(Stage sendStage, Stage parentStage, Pane sendPane, Scene sendScene) {
 		sendPane.setStyle(Styles.BACKGROUNDCOLOR);
 		sendStage.setTitle("Send Quiz");
-		sendScene = new Scene(sendPane, 800, 340);
+		sendScene = new Scene(sendPane, 800, 420);
 
 		startMonth.setLayoutX(20);
 		startMonth.setPrefWidth(130);
@@ -284,10 +288,15 @@ public class SendPage {
 		cb1.setFont(Font.font("Arial", 13));
 
 
-		cb2.setLayoutX(cb1.getLayoutX() + 160);
-		cb2.setLayoutY(cb1.getLayoutY());
+		cb2.setLayoutX(cb1.getLayoutX());
+		cb2.setLayoutY(cb1.getLayoutY()+30);
 		cb2.setTextFill(Color.WHITE);
 		cb2.setFont(Font.font("Arial", 13));
+		
+		cb3.setLayoutX(cb1.getLayoutX());
+		cb3.setLayoutY(cb1.getLayoutY()+60);
+		cb3.setTextFill(Color.WHITE);
+		cb3.setFont(Font.font("Arial", 13));
 
 		rb1.setLayoutX(feedbackBox.getLayoutX());
 		rb2.setLayoutX(feedbackBox.getLayoutX());
@@ -311,7 +320,7 @@ public class SendPage {
 
 		errorLabel = new Label();
 		errorLabel.setLayoutX(90);
-		errorLabel.setLayoutY(295);
+		errorLabel.setLayoutY(370);
 		errorLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
 		cancel.setLayoutX(send.getLayoutX() - 110);
@@ -329,7 +338,7 @@ public class SendPage {
 
 
 
-		sendPane.getChildren().addAll(cb1, cb2, send, startMonth, startDay, startHour, startMin, feedbackBox, startDayLabel,
+		sendPane.getChildren().addAll(cb1, cb2, cb3, send, startMonth, startDay, startHour, startMin, feedbackBox, startDayLabel,
 				startHourLabel, startMonthLabel, startMinLabel, endDayLabel, endHourLabel, endMonthLabel, endMinLabel, qBox, quizCode, rBox, startTimeBox,
 				endTimeBox, cancel, endMonth, endDay, endHour, endMin, errorLabel);
 		sendStage.getIcons().add(Styles.GSIcon);

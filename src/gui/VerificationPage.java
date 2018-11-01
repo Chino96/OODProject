@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +22,7 @@ public class VerificationPage {
 	private TextField emailField;
 	private PasswordField passField;
 	private Button send;
+	private Button cancel;
 
 	public VerificationPage() {
 		stage = new Stage();
@@ -28,6 +31,7 @@ public class VerificationPage {
 		emailField = new TextField();
 		passField = new PasswordField();
 		send = new Button("Send");
+		cancel = new Button("Cancel");
 		buildVerificationPage(stage, pane, scene);
 	}
 	
@@ -71,7 +75,25 @@ public class VerificationPage {
 		send.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
 		send.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
 		
-		pane.getChildren().addAll(emailField, emailLabel, passField, passLabel, send);
+		cancel.setLayoutX(20);
+		cancel.setLayoutY(pane.getHeight() - 55);
+		cancel.setPrefWidth(100);
+		cancel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+		cancel.setStyle(Styles.BUTTONSTYLE);
+		cancel.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
+		cancel.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
+		cancel.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				stage.close();
+				
+			}
+			
+		});
+		
+		
+		pane.getChildren().addAll(emailField, emailLabel, passField, passLabel, send, cancel);
 		stage.getIcons().add(Styles.GSIcon);
 		stage.setScene(scene);
 	}
