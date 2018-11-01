@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ProfessorGUI extends Application {
-
+	private String fileName;
+		
     private DataBase dataBase = new DataBase();
 
     private String emailList = "";
@@ -116,7 +117,7 @@ public class ProfessorGUI extends Application {
                 fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
                                
                 //Remove the .txt from file name
-                String fileName = startPage.getLblEFile().getText();
+                fileName = startPage.getLblQFile().getText();
                 fileName = fileName.substring(0, fileName.length()-4);
                 
                 //call create report
@@ -202,14 +203,19 @@ public class ProfessorGUI extends Application {
 
             @Override
             public void handle(ActionEvent event) {
+            	fileName = startPage.getLblQFile().getText();
+                fileName = fileName.substring(0, fileName.length()-4);
                 EmailComm eCom = new EmailComm();
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), "This is a test",
                         "This is a test for our Project", emailList);
 
-                dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
+                dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
                         + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
-                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
+                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO " + "\"QuizCodes\" VALUES ('" + fileName +
+                        "', " + sendPage.getQuizCode().getText() + ");");
+                
+               
             }
 
         });
