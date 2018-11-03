@@ -80,8 +80,8 @@ public class VerificationPage {
 		cancel.setPrefWidth(100);
 		cancel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
 		cancel.setStyle(Styles.BUTTONSTYLE);
-		cancel.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
-		cancel.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
+		cancel.setOnMouseEntered(e -> cancel.setStyle(Styles.BUTTONHOVER));
+		cancel.setOnMouseExited(e -> cancel.setStyle(Styles.BUTTONSTYLE));
 		cancel.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override

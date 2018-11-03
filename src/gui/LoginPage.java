@@ -17,8 +17,11 @@ public class LoginPage {
 
 	private Pane pane;
 	private Scene scene;
+	private TextField emailField;
 	private PasswordField codeField;
 	private Button btnLogin;
+	private VBox loginBox;
+	private Label error;
 
 	//Adds shadow effect to buttons when hovered over
 	private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
@@ -41,12 +44,30 @@ public class LoginPage {
 		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,bPosition,backgroundSize);
 		Background background = new Background(bGround);
 
-		pane.setPrefHeight(215);
+		pane.setPrefHeight(300);
 		pane.setPrefWidth(240);
 
+		Label lblEmail = new Label("Email");
+		lblEmail.setLayoutX(57);
+		lblEmail.setLayoutY(120);
+		lblEmail.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+		lblEmail.setTextFill(Paint.valueOf("WHITE"));
+
+		Label lblCode = new Label("Quiz Code");
+		lblCode.setLayoutX(20);
+		lblCode.setLayoutY(lblEmail.getLayoutY()+40);
+		lblCode.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+		lblCode.setTextFill(Paint.valueOf("WHITE"));
+
+		emailField = new TextField();
+		emailField.setLayoutX(lblEmail.getLayoutX() + 53);
+		emailField.setLayoutY(lblEmail.getLayoutY() + 18);
+		emailField.setPrefWidth(190);
+		emailField.setStyle(buttonStyle);
+
 		codeField = new PasswordField();
-		codeField.setLayoutX(113);
-		codeField.setLayoutY(115);
+		codeField.setLayoutX(lblCode.getLayoutX() + 130);
+		codeField.setLayoutY(emailField.getLayoutY() + 40);
 		codeField.setPrefWidth(100);
 		codeField.setAlignment(Pos.CENTER);
 
@@ -60,20 +81,25 @@ public class LoginPage {
 			}
 		}));
 
+		error = new Label();
+		error.setTextFill(Color.RED);
+		error.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
-		Label lblCode = new Label("Quiz Code:");
-		lblCode.setLayoutX(25);
-		lblCode.setLayoutY(117.5);
-		lblCode.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-		lblCode.setTextFill(Paint.valueOf("WHITE"));
-
+		loginBox = new VBox();
+		loginBox.setLayoutX(25);
+		loginBox.setLayoutY(110);
+		loginBox.setAlignment(Pos.CENTER);
+		loginBox.setSpacing(4);
+		loginBox.getChildren().addAll(lblEmail, emailField, lblCode, codeField, error);
 
 		shadowOn.setSpread(0.6);
+
+
 
 		//Create button to login to quiz
 		btnLogin = new Button("Submit");
 		btnLogin.setLayoutX(70);
-		btnLogin.setLayoutY(160);
+		btnLogin.setLayoutY(252);
 		btnLogin.setPrefWidth(100);
 		btnLogin.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		btnLogin.setStyle(buttonStyle);
@@ -85,10 +111,11 @@ public class LoginPage {
 				btnLogin.fire();
 			}
 		});
-		
+
+
 
 		pane.setBackground(background);
-		pane.getChildren().addAll(btnLogin, lblCode, codeField);
+		pane.getChildren().addAll(btnLogin, loginBox);
 
 
 		outerPane.setStyle(backgroundColor);
@@ -113,8 +140,17 @@ public class LoginPage {
 	public PasswordField getCodeField() {
 		return codeField;
 	}
+
 	public Button getBtnLogin() {
 		return btnLogin;
+	}
+
+	public void setError(){
+		error.setText("Invalid Email or Code");
+	}
+
+	public void resetError(){
+		error.setText("");
 	}
 
 }
