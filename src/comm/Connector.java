@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import gui.VerificationPage;
+
 public class Connector {
 
 	private Connection connect;
@@ -19,6 +21,8 @@ public class Connector {
 	private String user;
 	private String password;
 
+	VerificationPage vPage = new VerificationPage();
+	
 	public Connector() {
 		port = "5432";
 		dbName = "/harrisgs";
