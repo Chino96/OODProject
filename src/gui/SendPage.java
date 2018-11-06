@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.collections.FXCollections;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -47,6 +48,7 @@ public class SendPage {
 
 	private CheckBox cb1;
 	private CheckBox cb2;
+	private CheckBox cb3;
 
 	private Label errorLabel;
 
@@ -64,6 +66,7 @@ public class SendPage {
 
 		cb1 = new CheckBox("Randomize Questions");
 		cb2 = new CheckBox("Randomize Answer Choices");
+		cb3 = new CheckBox("In Class Quiz");
 
 		rb1 = new RadioButton("Provide feedback with all questions.");
 		rb2 = new RadioButton("Provide feedback with only incorrect answers.");
@@ -86,6 +89,7 @@ public class SendPage {
 		endMin = new ComboBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59));
 
 		buildSendPage(sendStage, parentStage, sendPane, sendScene);
+		
 	}
 
 	public void buildSendPage(Stage sendStage, Stage parentStage, Pane sendPane, Scene sendScene) {
@@ -283,11 +287,15 @@ public class SendPage {
 		cb1.setTextFill(Color.WHITE);
 		cb1.setFont(Font.font("Arial", 13));
 
-
 		cb2.setLayoutX(cb1.getLayoutX() + 160);
 		cb2.setLayoutY(cb1.getLayoutY());
 		cb2.setTextFill(Color.WHITE);
 		cb2.setFont(Font.font("Arial", 13));
+		
+		cb3.setLayoutX(cb1.getLayoutX());
+		cb3.setLayoutY(cb1.getLayoutY()+60);
+		cb3.setTextFill(Color.WHITE);
+		cb3.setFont(Font.font("Arial", 13));		
 
 		rb1.setLayoutX(feedbackBox.getLayoutX());
 		rb2.setLayoutX(feedbackBox.getLayoutX());
@@ -307,7 +315,10 @@ public class SendPage {
 		send.setFont(Font.font("Arial", FontWeight.BOLD,18));
 		send.setStyle(Styles.BUTTONSTYLE);
 		send.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
-		send.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
+		send.setOnMouseExited(e -> {send.setStyle(Styles.BUTTONSTYLE);
+			check();
+			System.out.println(LoginPage.inClass);
+			});
 
 		errorLabel = new Label();
 		errorLabel.setLayoutX(90);
@@ -329,11 +340,18 @@ public class SendPage {
 
 
 
-		sendPane.getChildren().addAll(cb1, cb2, send, startMonth, startDay, startHour, startMin, feedbackBox, startDayLabel,
+		sendPane.getChildren().addAll(cb1, cb2, cb3, send, startMonth, startDay, startHour, startMin, feedbackBox, startDayLabel,
 				startHourLabel, startMonthLabel, startMinLabel, endDayLabel, endHourLabel, endMonthLabel, endMinLabel, qBox, quizCode, rBox, startTimeBox,
 				endTimeBox, cancel, endMonth, endDay, endHour, endMin, errorLabel);
 		sendStage.getIcons().add(Styles.GSIcon);
 		sendStage.setScene(sendScene);
+	}
+	public void check() {
+		if(cb3.isSelected()) {
+			LoginPage.inClass = true;
+		}else {
+			LoginPage.inClass = false;
+		}
 	}
 
 	public void showSendPage() {
@@ -399,6 +417,10 @@ public class SendPage {
 
 	public CheckBox getCb2() {
 		return cb2;
+	}
+
+	public CheckBox getCb3() {
+		return cb3;
 	}
 
 	public TextField getQuizCode() {

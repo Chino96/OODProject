@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class ProfessorGUI extends Application {
 	private String fileName;
 		
-    private DataBase dataBase = new DataBase();
+    //private DataBase dataBase = new DataBase();
 
     private String emailList = "";
 
@@ -130,6 +130,13 @@ public class ProfessorGUI extends Application {
 					e.printStackTrace();
 				}
                 
+                AnswerReport.createAnswerReportTxt(fileName);
+                try {
+                	gradeReport.appendGradeReportTxt(fileName);
+                }catch (SQLException e) {
+                	e.printStackTrace();
+                }
+                
                 File file = fileChooser.showOpenDialog(reportStage);
                 Desktop openFile = Desktop.getDesktop();
                 if(file.exists())
@@ -208,13 +215,13 @@ public class ProfessorGUI extends Application {
                 EmailComm eCom = new EmailComm();
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), "This is a test",
                         "This is a test for our Project", emailList);
-
+/*
                 dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
                         + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
                         + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO " + "\"QuizCodes\" VALUES ('" + fileName +
                         "', " + sendPage.getQuizCode().getText() + ");");
-                
+               */ 
                
             }
 
