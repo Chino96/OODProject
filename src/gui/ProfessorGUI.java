@@ -39,6 +39,7 @@ public class ProfessorGUI extends Application {
         StartPage startPage = new StartPage(primaryStage);
         SendPage sendPage = new SendPage(primaryStage);
         VerificationPage vPage = new VerificationPage();
+        EmailVerify evPage = new EmailVerify();
         // Open help window
 
         startPage.getBtnHelp().setOnAction(new EventHandler<ActionEvent>() {
@@ -181,8 +182,10 @@ public class ProfessorGUI extends Application {
 
                         } else if (sendPage.getStartMin() > sendPage.getEndMin()) {
                             if (sendPage.getStartHour() < sendPage.getEndHour()) {
+                            	if (sendPage.getStartDay() < sendPage.getEndDay()) {
                                 vPage.showVerificationPage();
                                 sendPage.resetErrorLabel();
+                            	}
                             } else sendPage.setTimeError();
 
                         } else {
@@ -205,11 +208,14 @@ public class ProfessorGUI extends Application {
                 EmailComm eCom = new EmailComm();
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), "This is a test",
                         "This is a test for our Project", emailList);
+                
 
                 dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
                         + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
                         + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
+                
+                evPage.showEmailVerify();
             }
 
         });

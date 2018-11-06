@@ -16,13 +16,13 @@ import javafx.stage.Stage;
 
 public class VerificationPage {
 	private Stage stage;
-
 	private Pane pane;
 	private Scene scene;
 	private TextField emailField;
 	private PasswordField passField;
 	private Button send;
 	private Button cancel;
+	public Label emailVerify;
 
 	public VerificationPage() {
 		stage = new Stage();
@@ -67,6 +67,10 @@ public class VerificationPage {
 		passLabel.setLayoutX(15);
 		passLabel.setLayoutY(140);
 		
+		emailVerify = new Label("Email Successfully Delivered");
+		emailVerify.setFont(Font.font("Arial", 16));
+		emailVerify.setTextFill(Paint.valueOf("#041E60"));
+		
 		send.setLayoutX(pane.getWidth() - 100);
 		send.setLayoutY(pane.getHeight() - 55);
 		send.setPrefWidth(80);
@@ -82,8 +86,8 @@ public class VerificationPage {
 		cancel.setStyle(Styles.BUTTONSTYLE);
 		cancel.setOnMouseEntered(e -> cancel.setStyle(Styles.BUTTONHOVER));
 		cancel.setOnMouseExited(e -> cancel.setStyle(Styles.BUTTONSTYLE));
+		
 		cancel.setOnAction(new EventHandler<ActionEvent>(){
-
 			@Override
 			public void handle(ActionEvent arg0) {
 				stage.close();
@@ -93,7 +97,7 @@ public class VerificationPage {
 		});
 		
 		
-		pane.getChildren().addAll(emailField, emailLabel, passField, passLabel, send, cancel);
+		pane.getChildren().addAll(emailField, emailLabel, passField, passLabel, send, cancel, emailVerify);
 		stage.getIcons().add(Styles.GSIcon);
 		stage.setScene(scene);
 	}
@@ -112,5 +116,9 @@ public class VerificationPage {
 
 	public Button getSend() {
 		return send;
+	}
+	
+	public void setEmailVerify() {
+		emailVerify.setTextFill(Paint.valueOf("#FFFFFF"));
 	}
 }
