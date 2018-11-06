@@ -322,7 +322,9 @@ public class SendPage {
 		send.setFont(Font.font("Arial", FontWeight.BOLD,18));
 		send.setStyle(Styles.BUTTONSTYLE);
 		send.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
-		send.setOnMouseExited(e -> send.setStyle(Styles.BUTTONSTYLE));
+		send.setOnMouseExited(e -> {send.setStyle(Styles.BUTTONSTYLE);
+		check();
+		});
 
 		errorLabel = new Label();
 		errorLabel.setLayoutX(90);
@@ -349,6 +351,14 @@ public class SendPage {
 				endTimeBox, cancel, endMonth, endDay, endHour, endMin, errorLabel);
 		sendStage.getIcons().add(Styles.GSIcon);
 		sendStage.setScene(sendScene);
+	}
+	
+	public void check() {
+		if(cb3.isSelected()) {
+			LoginPage.inClass = true;
+		}else {
+			LoginPage.inClass = false;
+		}
 	}
 
 	public void showSendPage() {

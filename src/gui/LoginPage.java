@@ -15,6 +15,7 @@ import javafx.scene.text.FontWeight;
 
 public class LoginPage {
 
+	static boolean inClass;
 	private Pane pane;
 	private Scene scene;
 	private TextField emailField;
@@ -30,6 +31,14 @@ public class LoginPage {
 	private DropShadow shadowOff = new DropShadow(20, colorOff);
 
 	public LoginPage() {
+		if(inClass = true) {
+			try {
+				CheckIP.main();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		
 		pane = new Pane();
 		Pane outerPane = new Pane();
 
