@@ -31,6 +31,10 @@ public class Quiz extends Application{
 				if(loginPage.getEmailField().getText().equals("1234")) {
 					qPages.generatePage(pageNum);
 					stage.setScene(qPages.getScenes().get(pageNum));
+					loginPage.resetError();
+				}
+				else{
+					loginPage.setError();
 				}
 			}});
 

@@ -30,6 +30,7 @@ public class QuestionPages {
 		
 		//next page button
 		Button btnNext;
+		Button btnSubmit;
 
 		//previous button
 
@@ -62,12 +63,22 @@ public class QuestionPages {
 			btnNext = new Button("Next");
 			btnNext.setPrefWidth(80);
 			btnNext.setPrefHeight(40);
-			btnNext.setLayoutX(paneWidth - 95);
+			btnNext.setLayoutX(paneWidth - 110);
 			btnNext.setLayoutY(paneHeight - 55);
 			btnNext.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 			btnNext.setStyle(buttonStyle);
 			btnNext.setOnMouseEntered(e -> btnNext.setStyle(buttonHoverStyle));
 			btnNext.setOnMouseExited(e -> btnNext.setStyle(buttonStyle));
+
+			btnSubmit = new Button("Submit Quiz");
+			btnSubmit.setPrefWidth(150);
+			btnSubmit.setPrefHeight(40);
+			btnSubmit.setLayoutX(paneWidth - 190);
+			btnSubmit.setLayoutY(paneHeight - 55);
+			btnSubmit.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+			btnSubmit.setStyle(buttonStyle);
+			btnSubmit.setOnMouseEntered(e -> btnSubmit.setStyle(buttonHoverStyle));
+			btnSubmit.setOnMouseExited(e -> btnSubmit.setStyle(buttonStyle));
 			
 			//read document when instantiated 
 			readDocument();
@@ -126,12 +137,22 @@ public class QuestionPages {
 			pane.setPrefHeight(paneHeight);
 			pane.setPrefWidth(paneWidth);
 			pane.setStyle(backgroundColor);
-			
+
+			int pageCount;
+			pageCount = index;
 			//add the next button to the page
-			pane.getChildren().add(btnNext);
-			
+			if(pageCount < count-1){
+				pane.getChildren().add(btnNext);
+			}
+
+
+
 			//create label for question
 			Label question = new Label(questions.get(index).question);
+
+
+
+			System.out.println(pageCount);
 			question.setTextFill(Color.WHITE);
 			question.setFont(Font.font("Arial" , FontWeight.BOLD, 16));
 			question.setPrefWidth(paneWidth-30);
@@ -141,6 +162,12 @@ public class QuestionPages {
 
 			//add question to pane
 			pane.getChildren().add(question);
+
+			System.out.println(count);
+			if(pageCount == count-1){
+				pane.getChildren().add(btnSubmit);
+			}
+
 
 			//create array of radio buttons  
 			RadioButton[] rdioAnswer = new RadioButton[questions.get(index).answers.size()];

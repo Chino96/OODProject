@@ -44,6 +44,7 @@ public class SendPage {
 	private RadioButton rb1;
 	private RadioButton rb2;
 	private RadioButton rb3;
+	private RadioButton rb4;
 
 	private CheckBox cb1;
 	private CheckBox cb2;
@@ -72,6 +73,7 @@ public class SendPage {
 		rb1 = new RadioButton("Provide feedback with all questions.");
 		rb2 = new RadioButton("Provide feedback with only incorrect answers.");
 		rb3 = new RadioButton("Provide feeedback with only correct answers.");
+		rb4 = new RadioButton("Do not provide any feedback.");
 
 		startMonth = new ComboBox<>(FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 
@@ -95,7 +97,7 @@ public class SendPage {
 	public void buildSendPage(Stage sendStage, Stage parentStage, Pane sendPane, Scene sendScene) {
 		sendPane.setStyle(Styles.BACKGROUNDCOLOR);
 		sendStage.setTitle("Send Quiz");
-		sendScene = new Scene(sendPane, 800, 420);
+		sendScene = new Scene(sendPane, 800, 400);
 
 		startMonth.setLayoutX(20);
 		startMonth.setPrefWidth(130);
@@ -274,13 +276,16 @@ public class SendPage {
 		rb3.setToggleGroup(group);
 		rb3.setFont(Font.font("Arial", 14));
 
+		rb4.setToggleGroup(group);
+		rb4.setFont(Font.font("Arial", 14));
+
 		VBox rBox = new VBox();
 		rBox.setPrefWidth(310);
 		rBox.setLayoutX(feedbackBox.getLayoutX());
 		rBox.setLayoutY(feedbackBox.getLayoutY() + 40);
 		rBox.setAlignment(Pos.TOP_LEFT);
 		rBox.setSpacing(10);
-		rBox.getChildren().addAll(rb1, rb2, rb3);
+		rBox.getChildren().addAll(rb1, rb2, rb3,rb4);
 
 		cb1.setLayoutX(33);
 		cb1.setLayoutY(260);
@@ -309,6 +314,7 @@ public class SendPage {
 		rb1.setTextFill(Paint.valueOf("#FFFFFF"));
 		rb2.setTextFill(Paint.valueOf("#FFFFFF"));
 		rb3.setTextFill(Paint.valueOf("#FFFFFF"));
+		rb4.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		send.setLayoutX(sendScene.getWidth() - 100);
 		send.setLayoutY(sendScene.getHeight() - 55);
@@ -320,7 +326,7 @@ public class SendPage {
 
 		errorLabel = new Label();
 		errorLabel.setLayoutX(90);
-		errorLabel.setLayoutY(370);
+		errorLabel.setLayoutY(sendPane.getHeight()-40);
 		errorLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
 		cancel.setLayoutX(send.getLayoutX() - 110);
