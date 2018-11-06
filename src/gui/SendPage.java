@@ -317,8 +317,8 @@ public class SendPage {
 		send.setOnMouseEntered(e -> send.setStyle(Styles.BUTTONHOVER));
 		send.setOnMouseExited(e -> {send.setStyle(Styles.BUTTONSTYLE);
 			check();
-			System.out.println(LoginPage.inClass);
 			});
+		//Added IP Checker if in class button is selected when send is pushed
 
 		errorLabel = new Label();
 		errorLabel.setLayoutX(90);

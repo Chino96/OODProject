@@ -28,6 +28,7 @@ public class LoginPage {
 	private DropShadow shadowOff = new DropShadow(20, colorOff);
 
 	public LoginPage() {
+		//Added IP Checker if in class button is selected
 		if(inClass = true) {
 			try {
 				CheckIP.main();
