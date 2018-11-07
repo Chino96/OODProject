@@ -15,8 +15,8 @@ import javafx.scene.text.FontWeight;
 
 public class LoginPage {
 
-	static boolean inClass;
 	private Pane pane;
+	private Pane outerPane;
 	private Scene scene;
 	private TextField emailField;
 	private PasswordField codeField;
@@ -31,31 +31,29 @@ public class LoginPage {
 	private DropShadow shadowOff = new DropShadow(20, colorOff);
 
 	public LoginPage() {
-		if(inClass = true) {
-			try {
-				CheckIP.main();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-		
 		pane = new Pane();
-		Pane outerPane = new Pane();
+		outerPane = new Pane();
+		emailField = new TextField();
+		codeField = new PasswordField();
+		scene = new Scene(outerPane);
+		buildLoginPage();
+	}
 
+	private void buildLoginPage() {
+
+		pane.setPrefHeight(300);
+		pane.setPrefWidth(240);
+		
 		String buttonStyle = " -fx-background-radius: 25px; -fx-border-color: #957D3F ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
 		String buttonHoverStyle = "-fx-base: #957D3F; -fx-background-radius: 25px; -fx-border-color: #FFFFFF ; -fx-border-width: 3.5px; -fx-border-radius: 25px; -fx-background-insets: 2;";
 		String backgroundColor = "-fx-background-color: #041E60";
 
 		//Create Georgia Southern background image in pane
-		Image backGrd = new Image("http://static-11.sinclairstoryline.com/resources/media/a1513171-a451-48a6-ad84-2ea32c3c1a53-large16x9_1280x720_51223E00TCAUL.png", 200, 112.5, true, true);
 		BackgroundSize backgroundSize = new BackgroundSize(150, 84.375, false, false, false, false);
 		BackgroundPosition bPosition = new BackgroundPosition(Side.LEFT, 45, false, Side.TOP, 15, false);
-		BackgroundImage bGround = new BackgroundImage(backGrd, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,bPosition,backgroundSize);
-		Background background = new Background(bGround);
-
-		pane.setPrefHeight(300);
-		pane.setPrefWidth(240);
-
+		BackgroundImage bGround = new BackgroundImage(Styles.image, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,bPosition,backgroundSize);
+		Styles.BACKGROUNDIMAGE = new Background(bGround);
+		
 		Label lblEmail = new Label("Email");
 		lblEmail.setLayoutX(57);
 		lblEmail.setLayoutY(120);
@@ -67,14 +65,13 @@ public class LoginPage {
 		lblCode.setLayoutY(lblEmail.getLayoutY()+40);
 		lblCode.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 		lblCode.setTextFill(Paint.valueOf("WHITE"));
-
-		emailField = new TextField();
+		
 		emailField.setLayoutX(lblEmail.getLayoutX() + 53);
 		emailField.setLayoutY(lblEmail.getLayoutY() + 18);
 		emailField.setPrefWidth(190);
 		emailField.setStyle(buttonStyle);
 
-		codeField = new PasswordField();
+		
 		codeField.setLayoutX(lblCode.getLayoutX() + 130);
 		codeField.setLayoutY(emailField.getLayoutY() + 40);
 		codeField.setPrefWidth(100);
@@ -123,17 +120,15 @@ public class LoginPage {
 
 
 
-		pane.setBackground(background);
+		pane.setBackground(Styles.BACKGROUNDIMAGE);
 		pane.getChildren().addAll(btnLogin, loginBox);
 
 
 		outerPane.setStyle(backgroundColor);
 		outerPane.getChildren().addAll(pane);
 
-		scene = new Scene(outerPane);
-
 	}
-
+	
 	public Scene getScene() {
 		return scene;
 	}

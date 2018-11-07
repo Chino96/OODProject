@@ -39,7 +39,6 @@ public class ProfessorGUI extends Application {
         StartPage startPage = new StartPage(primaryStage);
         SendPage sendPage = new SendPage(primaryStage);
         VerificationPage vPage = new VerificationPage();
-        EmailVerify evPage = new EmailVerify();
         // Open help window
 
         startPage.getBtnHelp().setOnAction(new EventHandler<ActionEvent>() {
@@ -215,7 +214,6 @@ public class ProfessorGUI extends Application {
                         + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
                         + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
                 
-                evPage.showEmailVerify();
             }
 
         });

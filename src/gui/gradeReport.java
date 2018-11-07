@@ -7,21 +7,10 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import comm.Connector;
+import comm.DataBase;
 
 public class gradeReport {
 
-	//delete main method once connected for real
-	public static void main(String[] args) {
-		String fileName = "testquiz";
-		createGradeReportTxt(fileName);
-		try {
-			appendGradeReportTxt(fileName);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	//Pulls in Information for Grade Report
 	public static void appendGradeReportTxt(String fileName) throws SQLException {
 		String userHomePath = System.getProperty("user.home");
@@ -31,10 +20,9 @@ public class gradeReport {
 
 			bw.write("\t\t\t\t\t"+fileName+" Scores\n");
 			
-			Connector con = new Connector();
-			con.connect();
+			DataBase db = new DataBase();
 			//select from statement gets emails and grade
-			ResultSet resultSetAvg = con.MakeQuery("Select AVG(\"finalGrade\") from \""+fileName+"\"");
+			ResultSet resultSetAvg = db.Read("Select AVG(\"finalGrade\") from \""+fileName+"\"");
 			
 			//Calc the average for the class
 			while (resultSetAvg.next()) { 
@@ -43,7 +31,7 @@ public class gradeReport {
 				bw.write("The Class Average is "+saverage+"\n\n");
 			}
 			
-			ResultSet resultSet = con.MakeQuery("Select \"studentEmail\",\"finalGrade\" from \""+fileName+"\"");	
+			ResultSet resultSet = db.Read("Select \"studentEmail\",\"finalGrade\" from \""+fileName+"\"");	
 			while (resultSet.next()) {    
 				String email = resultSet.getString(1);
 				Double grade = resultSet.getDouble(2);
@@ -52,8 +40,6 @@ public class gradeReport {
 				bw.write(sgrade); //Print grade
 				bw.write("\n");//Move to the next line to print the next row.           
 			}
-
-			System.out.println("Done");
 
 		} catch (IOException e) {
 			e.printStackTrace();

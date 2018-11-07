@@ -143,6 +143,8 @@ public class QuestionPages {
 			//add the next button to the page
 			if(pageCount < count-1){
 				pane.getChildren().add(btnNext);
+			}else {
+				pane.getChildren().add(btnSubmit);
 			}
 
 
@@ -164,10 +166,6 @@ public class QuestionPages {
 			pane.getChildren().add(question);
 
 			System.out.println(count);
-			if(pageCount == count-1){
-				pane.getChildren().add(btnSubmit);
-			}
-
 
 			//create array of radio buttons  
 			RadioButton[] rdioAnswer = new RadioButton[questions.get(index).answers.size()];
@@ -225,6 +223,9 @@ public class QuestionPages {
 
 		public Button getBtnNext() {
 			return btnNext;
+		}
+		public Button getBtnSubmit() {
+			return btnSubmit;
 		}
 
 

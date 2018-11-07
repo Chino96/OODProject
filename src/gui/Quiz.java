@@ -46,6 +46,16 @@ public class Quiz extends Application{
 				qPages.generatePage(pageNum);
 				stage.setScene(qPages.getScenes().get(pageNum));
 			}});
+		
+		qPages.getBtnSubmit().setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				System.out.println("Here i am 1");
+			}
+			
+			
+		});
 
 		stage.setScene(loginPage.getScene());
 		stage.show();

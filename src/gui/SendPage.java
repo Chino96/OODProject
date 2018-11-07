@@ -355,9 +355,7 @@ public class SendPage {
 	
 	public void check() {
 		if(cb3.isSelected()) {
-			LoginPage.inClass = true;
 		}else {
-			LoginPage.inClass = false;
 		}
 	}
 
