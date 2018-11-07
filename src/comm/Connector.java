@@ -2,13 +2,14 @@ package comm;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connector {
 
-	private Connection connect;
+	public static Connection connect;
 	private Statement statment;
 	private ResultSet resultSet;
 	
@@ -39,7 +40,7 @@ public class Connector {
 		this.user = usr;
 		this.password = pass;
 	}
-
+	
 	public int connect() {
 		try {
 			Class.forName("org.postgresql.Driver");

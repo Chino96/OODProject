@@ -1,11 +1,15 @@
 package gui;
 
+import java.util.ArrayList;
+
+import comm.DataBase;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class Quiz extends Application{
+	private DataBase db = new DataBase();
 
 	private int pageNum = 0;
 
@@ -42,9 +46,33 @@ public class Quiz extends Application{
 
 			@Override
 			public void handle(ActionEvent e) {
+				System.out.println("here1");
+				ArrayList<String> bleh = new ArrayList<>();
+				bleh.add("a");
+				bleh.add("b");
+				bleh.add("c");
+				String quizName = "testquiz";
+				db.Write("INSERT INTO " + quizName + " VALUES ('abc@gmail.com', "
+						+ "bleh" + 80 + ");");
 				pageNum++;
 				qPages.generatePage(pageNum);
 				stage.setScene(qPages.getScenes().get(pageNum));
+			}});
+		
+		qPages.getBtnSubmit().setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+			/*	System.out.println("here1");
+				ArrayList<String> bleh = new ArrayList<>();
+				bleh.add("a");
+				bleh.add("b");
+				bleh.add("c");
+				String quizName = "testquiz";
+				System.out.println("here2");
+				db.Write("INSERT INTO " + quizName + " VALUES ('abc@gmail.com', "
+						+ "bleh" + 80 + ");");
+				System.out.println("here3");*/
 			}});
 
 		stage.setScene(loginPage.getScene());
@@ -53,5 +81,4 @@ public class Quiz extends Application{
 
 
 	}
-
 }

@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+
+import comm.DataBase;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -15,6 +19,7 @@ import javafx.scene.text.Text;
 
 public class QuestionPages {
 
+	private DataBase db = new DataBase();
 	//use file to generate questions and answers
 		File txtQuestions = new File("src/questions.txt");
 
@@ -69,7 +74,13 @@ public class QuestionPages {
 			btnNext.setStyle(buttonStyle);
 			btnNext.setOnMouseEntered(e -> btnNext.setStyle(buttonHoverStyle));
 			btnNext.setOnMouseExited(e -> btnNext.setStyle(buttonStyle));
-
+			
+			ArrayList<String> bleh = new ArrayList<>();
+			bleh.add("a");
+			bleh.add("b");
+			bleh.add("c");
+			String quizName = "testquiz";
+			
 			btnSubmit = new Button("Submit Quiz");
 			btnSubmit.setPrefWidth(150);
 			btnSubmit.setPrefHeight(40);
@@ -131,7 +142,7 @@ public class QuestionPages {
 
 		//method to create page
 		public void generatePage(int index) {
-			
+				
 			//create new pane and set the dimensions
 			Pane pane = new Pane();
 			pane.setPrefHeight(paneHeight);
@@ -166,6 +177,21 @@ public class QuestionPages {
 			System.out.println(count);
 			if(pageCount == count-1){
 				pane.getChildren().add(btnSubmit);
+				btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent e) {
+					System.out.println("here1");
+						ArrayList<String> bleh = new ArrayList<>();
+						bleh.add("a");
+						bleh.add("b");
+						bleh.add("c");
+						String quizName = "testquiz";
+						System.out.println("here2");
+						db.Write("INSERT INTO " + quizName + " VALUES ('abc@gmail.com', "
+								+ "bleh" + 80 + ");");
+						System.out.println("here3");
+					}});
 			}
 
 
@@ -225,6 +251,9 @@ public class QuestionPages {
 
 		public Button getBtnNext() {
 			return btnNext;
+		}
+		public Button getBtnSubmit() {
+			return btnSubmit;
 		}
 
 
