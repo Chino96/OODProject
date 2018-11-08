@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class Quiz extends Application{
 
 	private int pageNum = 0;
+	private String studentEmail;
 
 	public static void main(String args[]) {
 		launch(args);
@@ -28,7 +29,9 @@ public class Quiz extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 
-				if(loginPage.getEmailField().getText().equals("1234")) {
+				if(loginPage.getCodeField().getText().equals("1234") && loginPage.getEmail().contains("@georgiasouthern.edu")) {
+
+					studentEmail = loginPage.getEmail();
 					qPages.generatePage(pageNum);
 					stage.setScene(qPages.getScenes().get(pageNum));
 					loginPage.resetError();
@@ -46,14 +49,25 @@ public class Quiz extends Application{
 				qPages.generatePage(pageNum);
 				stage.setScene(qPages.getScenes().get(pageNum));
 			}});
-		
+
 		qPages.getBtnSubmit().setOnAction(new EventHandler<ActionEvent>() {
+
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("Here i am 1");
+
+				System.out.println("Here i am");
+				try {
+					Thread.sleep(1000);
+				}
+				catch (InterruptedException e){
+					e.printStackTrace();
+				}
+				stage.close();
+
 			}
-			
+
+
 			
 		});
 

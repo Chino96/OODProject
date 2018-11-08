@@ -138,7 +138,7 @@ public class LoginPage {
 	}
 
 	public TextField getEmailField() {
-		return codeField;
+		return emailField;
 	}
 
 	public PasswordField getCodeField() {
@@ -156,5 +156,8 @@ public class LoginPage {
 	public void resetError(){
 		error.setText("");
 	}
+
+	//Get email that is input into the emailField textfield
+	public String getEmail() { return emailField.getText();	}
 
 }

@@ -1,8 +1,6 @@
 package gui;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +24,7 @@ public class SendPage {
 
 	private Stage sendStage;
 	private Stage parentStage;
+
 	private Pane sendPane;
 	private Scene sendScene;
 
@@ -49,7 +48,6 @@ public class SendPage {
 	private CheckBox cb1;
 	private CheckBox cb2;
 	private CheckBox cb3;
-	
 
 	private Label errorLabel;
 

@@ -45,6 +45,8 @@ public class StartPage {
 	private VBox questionBox;
 	private VBox emailBox;
 
+	private String quizName;
+
 	public StartPage(Stage tStage) {
 		pane = new Pane();
 		outerPane = new Pane();
@@ -218,5 +220,9 @@ public class StartPage {
 	public Label getLblEFile() {
 		return lblEFile;
 	}
+
+	public void setQuizName(String q){ quizName = q; }
+
+	public String getQuizName(){ return quizName; }
 
 }

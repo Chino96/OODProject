@@ -49,6 +49,7 @@ public class ProfessorGUI extends Application {
             }
         });// end btnHelp.setOnAction
 
+        //Set options for "Upload Questions" button
         startPage.getQuestion().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
@@ -69,6 +70,8 @@ public class ProfessorGUI extends Application {
             }
         });// end question.setOnAction
 
+
+        //Set options for "Upload Emails" button
         startPage.getEmail().setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -82,6 +85,9 @@ public class ProfessorGUI extends Application {
 
                 if (file != null) {
                     startPage.getLblEFile().setText(file.getName());
+
+                    //Add quiz name to a string so it can be sent to the database
+                    startPage.setQuizName(file.getName().substring(0,file.getName().length()-4));
                     startPage.getLblEFile().setTextFill(Color.WHITE);
                     emailFile = file;
                 }
@@ -106,6 +112,7 @@ public class ProfessorGUI extends Application {
 
         });
 
+        //Set options for "View Reports" button
         startPage.getReports().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
@@ -145,6 +152,7 @@ public class ProfessorGUI extends Application {
             }
         });// end reports.setOnAction
 
+        //Open Send page
         startPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
@@ -152,6 +160,7 @@ public class ProfessorGUI extends Application {
             }
         });// end send.setOnAction
 
+        //Options for what "Send Button" does in Send Page
         sendPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -200,6 +209,7 @@ public class ProfessorGUI extends Application {
 
         });
 
+        //Options for Verification Page
         vPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
 
             @Override

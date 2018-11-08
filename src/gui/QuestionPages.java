@@ -41,7 +41,6 @@ public class QuestionPages {
 		private double paneWidth = 700;
 		private double paneHeight = 400;
 		int count = 0;
-		int lineLength = 0;
 
 		//Adds shadow effect to buttons when hovered over
 		private Color colorOn = new Color(0.5843, 0.4902, 0.2471, 1);
@@ -52,7 +51,7 @@ public class QuestionPages {
 		//no arg constructor
 		public QuestionPages() {
 			//initialize variables in constructor
-			scenes = new ArrayList<Scene>();
+			scenes = new ArrayList<>();
 			answers = new ArrayList<>();
 			answerBtnList = new ArrayList<>();
 			questions = new ArrayList<>();
@@ -153,8 +152,6 @@ public class QuestionPages {
 			Label question = new Label(questions.get(index).question);
 
 
-
-			System.out.println(pageCount);
 			question.setTextFill(Color.WHITE);
 			question.setFont(Font.font("Arial" , FontWeight.BOLD, 16));
 			question.setPrefWidth(paneWidth-30);
@@ -165,7 +162,6 @@ public class QuestionPages {
 			//add question to pane
 			pane.getChildren().add(question);
 
-			System.out.println(count);
 
 			//create array of radio buttons  
 			RadioButton[] rdioAnswer = new RadioButton[questions.get(index).answers.size()];
