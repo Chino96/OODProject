@@ -1,5 +1,10 @@
 package gui;
 
+import java.sql.Array;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import comm.Connector;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,9 +60,24 @@ public class Quiz extends Application{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-
-				System.out.println("Here i am");
 				try {
+					try {
+						String bleh[] = {"d", "b", "c"};
+						String quizName = "testquiz";
+						String sql = "INSERT INTO " + quizName + " VALUES (?, ?, ?);";
+					
+						Connector conn = new Connector();
+						conn.connect();
+						Array arrResponses = Connector.connect.createArrayOf("text", bleh);
+						PreparedStatement p = Connector.connect.prepareStatement(sql);
+						p.setString(1, studentEmail);
+						p.setArray(2, arrResponses); //Name of array
+						p.setInt(3, 80); //Final grade once calculated
+						p.executeUpdate();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					
 					Thread.sleep(1000);
 				}
 				catch (InterruptedException e){
