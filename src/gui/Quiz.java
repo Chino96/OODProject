@@ -68,10 +68,10 @@ public class Quiz extends Application{
 					
 						Connector conn = new Connector();
 						conn.connect();
-						Array arrResponses = Connector.connect.createArrayOf("text", bleh);
+						Array arrResponses = Connector.connect.createArrayOf("text", bleh); //Name of array
 						PreparedStatement p = Connector.connect.prepareStatement(sql);
 						p.setString(1, studentEmail);
-						p.setArray(2, arrResponses); //Name of array
+						p.setArray(2, arrResponses); 
 						p.setInt(3, 80); //Final grade once calculated
 						p.executeUpdate();
 					} catch (SQLException e) {
