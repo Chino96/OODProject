@@ -214,12 +214,12 @@ public class ProfessorGUI extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                EmailComm eCom = new EmailComm();
-                eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), "This is a test",
-                        "This is a test for our Project", emailList);
-                
                 fileName = startPage.getLblQFile().getText();
                 fileName = fileName.substring(0, fileName.length()-4);
+
+                EmailComm eCom = new EmailComm();
+                eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
+                        "This is a test for our Project", emailList);
                 
                 dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
