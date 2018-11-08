@@ -10,7 +10,7 @@ import gui.VerificationPage;
 
 public class Connector {
 
-	private Connection connect;
+	public static Connection connect;
 	private Statement statment;
 	private ResultSet resultSet;
 	

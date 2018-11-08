@@ -21,7 +21,7 @@ public class ProfessorGUI extends Application {
     private DataBase dataBase = new DataBase();
 
     private String emailList = "";
-
+    private String fileName;
     private File questionList;
     private File emailFile;
 
@@ -123,7 +123,7 @@ public class ProfessorGUI extends Application {
                 fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
                                
                 //Remove the .txt from file name
-                String fileName = startPage.getLblEFile().getText();
+                fileName = startPage.getLblQFile().getText();
                 fileName = fileName.substring(0, fileName.length()-4);
                 
                 //call create report
@@ -218,11 +218,18 @@ public class ProfessorGUI extends Application {
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), "This is a test",
                         "This is a test for our Project", emailList);
                 
-
-                dataBase.Write("CREATE TABLE public.\"" + questionList.getName() + "\"" + "("
+                fileName = startPage.getLblQFile().getText();
+                fileName = fileName.substring(0, fileName.length()-4);
+                
+                dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
                         + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
-                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
+                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO " + "\"QuizCodes\" VALUES ('" + fileName +
+                        "', " + sendPage.getQuizCode().getText() + ");" +
+                        " CREATE TABLE public.\"" + fileName + "questions\"" + "("
+                        + "\"questions\" text COLLATE pg_catalog.\"default\","
+                        + "canswers text COLLATE pg_catalog.\"default\"," + "\"panswers\" text[]" + ")"
+                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");       
                 
             }
 
