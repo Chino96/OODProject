@@ -18,7 +18,8 @@ public class gradeReport {
 		
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(gradeReport))) {
 
-			bw.write("\t\t\t\t\t"+fileName+" Scores\n");
+			bw.write("\t\t\t\t\t"+fileName+" Scores");
+			bw.newLine();
 			
 			DataBase db = new DataBase();
 			//select from statement gets emails and grade
@@ -28,7 +29,8 @@ public class gradeReport {
 			while (resultSetAvg.next()) { 
 				Double average = resultSetAvg.getDouble(1);
 				String saverage = Double.toString(Math.round(average * 100.0)/100.0);
-				bw.write("The Class Average is "+saverage+"\n\n");
+				bw.write("The Class Average is "+saverage);
+				bw.newLine();bw.newLine();
 			}
 			
 			ResultSet resultSet = db.Read("Select \"studentEmail\",\"finalGrade\" from \""+fileName+"\"");	
@@ -38,7 +40,7 @@ public class gradeReport {
 				String sgrade = Double.toString(Math.round(grade * 100.0)/100.0);
 				bw.write(email + " -\t "); //Print email
 				bw.write(sgrade); //Print grade
-				bw.write("\n");//Move to the next line to print the next row.           
+				bw.newLine();//Move to the next line to print the next row.           
 			}
 
 		} catch (IOException e) {
