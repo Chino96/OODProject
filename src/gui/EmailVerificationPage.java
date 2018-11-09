@@ -17,7 +17,7 @@ public class EmailVerificationPage {
     public EmailVerificationPage() {
         stage = new Stage();
         pane = new Pane();
-        scene = new Scene(pane, 400, 200);
+        scene = new Scene(pane, 300, 70);
         buildEmailVerificationPage(stage, pane, scene);
     }
 
@@ -29,7 +29,7 @@ public class EmailVerificationPage {
         emailVerify = new Label("Email Successfully Sent");
         emailVerify.setFont(Font.font("Arial", FontWeight.BOLD,22));
         emailVerify.setTextFill(Paint.valueOf("#FFFFFF"));
-        emailVerify.setLayoutX(15);
+        emailVerify.setLayoutX(20);
         emailVerify.setLayoutY(20);
 
 
@@ -40,6 +40,16 @@ public class EmailVerificationPage {
 
     public void showEmailVerificationPage() {
         stage.show();
+
+    }
+
+    public void closeEmailVerificationPage(){
+        try{
+            Thread.sleep(2000);
+        }
+        catch(Exception e){}
+            System.exit(0);
+
     }
 
 

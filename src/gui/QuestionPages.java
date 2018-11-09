@@ -116,7 +116,7 @@ public class QuestionPages {
 
 					}
 					//If the previous line is not empty and current line is not empty, it will be added to answers
-					else if (currLine.length() > 1) {
+					else if (currLine.length() >= 1) {
 						//add the answer to the last question in question arraylist
 						questions.get(questions.size()-1).answers.add(currLine);
 					}
@@ -183,7 +183,7 @@ public class QuestionPages {
 				}
 				answer.setFont(Font.font("Arial", 20));
 				// if the answer is a # create a text area
-				if (questions.get(index).answers.get(i).equals("##")) {
+				if (questions.get(index).answers.get(i).equals("#")) {
 					TextArea shortAnswer = new TextArea();
 					shortAnswer.setWrapText(true);
 					shortAnswer.setLayoutX(30);

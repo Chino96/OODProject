@@ -2,28 +2,35 @@ package gui;
 
 import comm.DataBase;
 import comm.EmailComm;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProfessorGUI extends Application {
 
     private DataBase dataBase = new DataBase();
 
-    private String emailList = "";
+    private String emailList;
     private String fileName;
-    private File questionList;
     private File emailFile;
+    private File questionList;
+
+
+    int count = 0;
+    ArrayList<Question> questions;
 
     // Window style
 
@@ -40,6 +47,7 @@ public class ProfessorGUI extends Application {
         SendPage sendPage = new SendPage(primaryStage);
         VerificationPage vPage = new VerificationPage();
         EmailVerificationPage evPage = new EmailVerificationPage();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
         // Open help window
 
@@ -89,7 +97,7 @@ public class ProfessorGUI extends Application {
                     startPage.getLblEFile().setText(file.getName());
 
                     //Add quiz name to a string so it can be sent to the database
-                    startPage.setQuizName(file.getName().substring(0,file.getName().length()-4));
+                    startPage.setQuizName(file.getName().substring(0, file.getName().length() - 4));
                     startPage.getLblEFile().setTextFill(Color.WHITE);
                     emailFile = file;
                 }
@@ -123,30 +131,32 @@ public class ProfessorGUI extends Application {
                 fileChooser.setTitle("Open Reports File");
                 fileChooser.setInitialDirectory(new File(rDirectory));
                 fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-                               
+
                 //Remove the .txt from file name
                 fileName = startPage.getLblQFile().getText();
-                fileName = fileName.substring(0, fileName.length()-4);
-                
+                fileName = fileName.substring(0, fileName.length() - 4);
+
                 //call create report
                 gradeReport.createGradeReportTxt(fileName);
+                //responseReport.createResponseReportTxt(fileName);
                 try {
-                	//call append report
-					gradeReport.appendGradeReportTxt(fileName);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                
+                    //call append report
+                    gradeReport.appendGradeReportTxt(fileName);
+                    //	responseReport.appendResponseReportTxt(fileName);
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
                 File file = fileChooser.showOpenDialog(reportStage);
                 Desktop openFile = Desktop.getDesktop();
-                if(file.exists())
-					try {
-						openFile.open(file);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                if (file.exists())
+                    try {
+                        openFile.open(file);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
                 if (file != null) {
                     System.out.println(file.toString());
@@ -166,49 +176,91 @@ public class ProfessorGUI extends Application {
         sendPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
+                //Add saved strings to for quiz options to be sent to the database
+                String quizCode;
+                String randQuest;
+                String randAns;
+                String inClass;
+                String feedbackOption;
+                String sMonth, sDay, sHour, sMin;
+                String eMonth, eDay, eHour, eMin;
+                boolean fileErrors = false;
+                boolean timeErrors = false;
+                boolean qCodeError = false;
+
+
                 if (emailFile == null || questionList == null) {
-                    sendPage.setErrorLabel();
+                    fileErrors = true;
                 } else {
                     try {
-                        if (sendPage.getStartMonth() == -1 || sendPage.getStartDay() == -1 || sendPage.getStartHour() == -1 || sendPage.getStartMin() == -1)
-                            throw new NullPointerException();
-                        if (sendPage.getStartMonth() > sendPage.getEndMonth()) {
-                            if (sendPage.getStartMonth() == 11 && (sendPage.getEndMonth() == 0 || sendPage.getEndMonth() == 1)) {
-                                vPage.showVerificationPage();
-                                sendPage.resetErrorLabel();
-                            } else sendPage.setTimeError();
+                        if (sendPage.getStartMonthIndex() == -1 || sendPage.getStartDayIndex() == -1 || sendPage.getStartHourIndex() == -1 || sendPage.getStartMinIndex() == -1) throw new NullPointerException();
+                        if (sendPage.getStartMonthIndex() > sendPage.getEndMonthIndex()) {
+                            if (sendPage.getStartMonthIndex() == 11 && (sendPage.getEndMonthIndex() == 0 || sendPage.getEndMonthIndex() == 1))  timeErrors = false;
+                            else timeErrors = true;
 
-                        } else if (sendPage.getStartDay() > sendPage.getEndDay()) {
-                            if (sendPage.getEndMonth() > sendPage.getStartMonth()) {
-                                vPage.showVerificationPage();
-                                sendPage.resetErrorLabel();
-                            } else sendPage.setTimeError();
+                        } else if (sendPage.getStartDayIndex() > sendPage.getEndDayIndex()) {
+                            if (sendPage.getEndMonthIndex() > sendPage.getStartMonthIndex()) timeErrors = false;
+                            else timeErrors = true;
 
-                        } else if (sendPage.getStartHour() > sendPage.getEndHour()) {
-                            if (sendPage.getStartDay() < sendPage.getEndDay()) {
-                                vPage.showVerificationPage();
-                                sendPage.resetErrorLabel();
-                            } else sendPage.setTimeError();
+                        } else if (sendPage.getStartHourIndex() > sendPage.getEndHourIndex()) {
+                            if (sendPage.getStartDayIndex() < sendPage.getEndDayIndex())  timeErrors = false;
+                            else timeErrors = true;
 
-                        } else if (sendPage.getStartMin() > sendPage.getEndMin()) {
-                            if (sendPage.getStartHour() < sendPage.getEndHour()) {
-                            	if (sendPage.getStartDay() < sendPage.getEndDay()) {
-                                vPage.showVerificationPage();
-                                sendPage.resetErrorLabel();
-                            	}
-                            } else sendPage.setTimeError();
+                        } else if (sendPage.getStartMinIndex() > sendPage.getEndMinIndex()) {
+                            if (sendPage.getStartHourIndex() < sendPage.getEndHourIndex()) {
+                            	if (sendPage.getStartDayIndex() < sendPage.getEndDayIndex()) timeErrors = false;
+                            } else timeErrors = true;
 
-                        } else {
-                            vPage.showVerificationPage();
-                            sendPage.resetErrorLabel();
-                        }
+                        } else timeErrors = false;
+
                     } catch (NullPointerException e) {
-                        sendPage.setTimeError();
+                        timeErrors = true;
                     }
                 }
+                if(sendPage.getQuizCode().length() != 4){ qCodeError = true;}
+                if(fileErrors){ sendPage.setErrorLabel();}
+                else if(timeErrors){ sendPage.setTimeError();}
+                else if(qCodeError){ sendPage.setQCodeError();}
+                else{
+                    sendPage.resetErrorLabel();
+                    //Start time choices
+                    sMonth = sendPage.getStartMonth();
+                    sDay = sendPage.getStartDay();
+                    sHour = sendPage.getStartHour();
+                    sMin = sendPage.getStartMin();
+
+
+                    //End time choices
+                    eMonth = sendPage.getEndMonth();
+                    eDay = sendPage.getEndDay();
+                    eHour = sendPage.getEndHour();
+                    eMin = sendPage.getEndMin();
+
+                    //Random Questions
+                    if(sendPage.getCb1().isSelected()){
+                        randQuest = sendPage.getCb1().getText();
+                    }
+
+                    //Random Answers
+                    if(sendPage.getCb2().isSelected()){
+                        randAns = sendPage.getCb2().getText();
+                    }
+
+                    //In class quiz
+                    if(sendPage.getCb3().isSelected()){
+                        inClass = sendPage.getCb3().getText();
+                    }
+
+                    //Feedback Option choice
+                    feedbackOption = sendPage.getSelectedToggle();
+
+                    //Save Quiz Code saved in Send Page
+                    quizCode = sendPage.getQuizCode();
+
+                    vPage.showVerificationPage();
+                }
             }
-
-
         });
 
         //Options for Verification Page
@@ -216,29 +268,39 @@ public class ProfessorGUI extends Application {
 
             @Override
             public void handle(ActionEvent event) {
+
                 fileName = startPage.getLblQFile().getText();
-                fileName = fileName.substring(0, fileName.length()-4);
+                fileName = fileName.substring(0, fileName.length() - 4);
 
                 EmailComm eCom = new EmailComm();
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName, "This is a test for our Project", emailList);
 
+
                 evPage.showEmailVerificationPage();
-                
+
+
                 dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
                         + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
                         + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO " + "\"QuizCodes\" VALUES ('" + fileName +
-                        "', " + sendPage.getQuizCode().getText() + ");" +
+                        "', " + sendPage.getQuizCode() + ");" +
                         " CREATE TABLE public.\"" + fileName + "questions\"" + "("
                         + "\"questions\" text COLLATE pg_catalog.\"default\","
                         + "canswers text COLLATE pg_catalog.\"default\"," + "\"panswers\" text[]" + ")"
-                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");       
-                
+                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
+
+
+                pause.setOnFinished(e -> evPage.closeEmailVerificationPage());
+                pause.play();
+
+
             }
+
 
         });
 
         startPage.showStartPage();
     }// end start
+
 
 }

@@ -106,6 +106,9 @@ public class VerificationPage {
 		stage.show();
 	}
 
+	public void closeVerificationPage() { stage.hide();
+	}
+
 	public TextField getEmailField() {
 		return emailField;
 	}
@@ -118,7 +121,5 @@ public class VerificationPage {
 		return send;
 	}
 	
-	public void setEmailVerify() {
-		emailVerify.setTextFill(Paint.valueOf("#FFFFFF"));
-	}
+
 }

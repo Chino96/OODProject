@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 public class DataBase {
 
 	private Connector con;
-
 	public DataBase() {
 		con = new Connector();
 	}

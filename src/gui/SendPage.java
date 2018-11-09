@@ -314,6 +314,7 @@ public class SendPage {
 		rb3.setTextFill(Paint.valueOf("#FFFFFF"));
 		rb4.setTextFill(Paint.valueOf("#FFFFFF"));
 
+
 		send.setLayoutX(sendScene.getWidth() - 100);
 		send.setLayoutY(sendScene.getHeight() - 55);
 		send.setPrefWidth(80);
@@ -362,36 +363,68 @@ public class SendPage {
 		this.parentStage.hide();
 	}
 
-	public int getStartMonth() {
+	public int getStartMonthIndex() {
 		return startMonth.getSelectionModel().getSelectedIndex();
 	}
 
-	public int getStartDay() {
+	public int getStartDayIndex() {
 		return startDay.getValue();
 	}
 
-	public int getStartHour() {
+	public int getStartHourIndex() {
 		return startHour.getValue();
 	}
 
-	public int getStartMin() {
+	public int getStartMinIndex() {
 		return startMin.getValue();
 	}
 
-	public int getEndMonth() {
+	public int getEndMonthIndex() {
 		return endMonth.getSelectionModel().getSelectedIndex();
 	}
 
-	public int getEndDay() {
+	public int getEndDayIndex() {
 		return endDay.getValue();
 	}
 
-	public int getEndHour() {
+	public int getEndHourIndex() {
 		return endHour.getValue();
 	}
 
-	public int getEndMin() {
+	public int getEndMinIndex() {
 		return endMin.getValue();
+	}
+
+	public String getStartMonth() {
+		return startMonth.getSelectionModel().getSelectedItem();
+	}
+
+	public String getStartDay() {
+		return startDay.getValue().toString();
+	}
+
+	public String getStartHour() {
+		return startHour.getValue().toString();
+	}
+
+	public String getStartMin() {
+		return startMin.getValue().toString();
+	}
+
+	public String getEndMonth() {
+		return endMonth.getSelectionModel().getSelectedItem();
+	}
+
+	public String getEndDay() {
+		return endDay.getValue().toString();
+	}
+
+	public String getEndHour() {
+		return endHour.getValue().toString();
+	}
+
+	public String getEndMin() {
+		return endMin.getValue().toString();
 	}
 
 	public Button getSend() {
@@ -402,28 +435,21 @@ public class SendPage {
 		return cancel;
 	}
 
-	public RadioButton getRb1() {
-		return rb1;
+	public String getSelectedToggle() {
+		RadioButton chk = (RadioButton) rb1.getToggleGroup().getSelectedToggle();
+		return chk.getText();
 	}
 
-	public RadioButton getRb2() {
-		return rb2;
-	}
-
-	public RadioButton getRb3() {
-		return rb3;
-	}
-
-	public CheckBox getCb1() {
-		return cb1;
-	}
+	public CheckBox getCb1() { return cb1; }
 
 	public CheckBox getCb2() {
 		return cb2;
 	}
 
-	public TextField getQuizCode() {
-		return quizCode;
+	public CheckBox getCb3() { return cb3; }
+
+	public String getQuizCode() {
+		return quizCode.getText();
 	}
 
 	public void setErrorLabel() {
@@ -433,6 +459,10 @@ public class SendPage {
 
 	public void setTimeError(){
 		errorLabel.setText("Quiz Time Incorrect");
+		errorLabel.setTextFill(Color.RED);
+	}
+	public void setQCodeError(){
+		errorLabel.setText("Incorrect Quiz Code");
 		errorLabel.setTextFill(Color.RED);
 	}
 
