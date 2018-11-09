@@ -128,9 +128,11 @@ public class ProfessorGUI extends Application {
                 
                 //call create report
                 gradeReport.createGradeReportTxt(fileName);
+                responseReport.createResponseReportTxt(fileName);
                 try {
                 	//call append report
 					gradeReport.appendGradeReportTxt(fileName);
+					responseReport.appendResponseReportTxt(fileName);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -21,9 +21,10 @@ public class gradeReport {
 			bw.write("\t\t\t\t\t"+fileName+" Scores");
 			bw.newLine();
 			
-			DataBase db = new DataBase();
+			Connector con = new Connector();
+			con.connect();
 			//select from statement gets emails and grade
-			ResultSet resultSetAvg = db.Read("Select AVG(\"finalGrade\") from \""+fileName+"\"");
+			ResultSet resultSetAvg = con.MakeQuery("Select AVG(\"finalGrade\") from \""+fileName+"\"");
 			
 			//Calc the average for the class
 			while (resultSetAvg.next()) { 
@@ -33,7 +34,7 @@ public class gradeReport {
 				bw.newLine();bw.newLine();
 			}
 			
-			ResultSet resultSet = db.Read("Select \"studentEmail\",\"finalGrade\" from \""+fileName+"\"");	
+			ResultSet resultSet = con.MakeQuery("Select \"studentEmail\",\"finalGrade\" from \""+fileName+"\"");	
 			while (resultSet.next()) {    
 				String email = resultSet.getString(1);
 				Double grade = resultSet.getDouble(2);
