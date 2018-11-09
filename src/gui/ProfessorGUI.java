@@ -222,7 +222,7 @@ public class ProfessorGUI extends Application {
                 EmailComm eCom = new EmailComm();
                 eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName, "This is a test for our Project", emailList);
 
-                //evPage.showEmailVerificationPage();
+                evPage.showEmailVerificationPage();
                 
                 dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
