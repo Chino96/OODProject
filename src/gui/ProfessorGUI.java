@@ -39,6 +39,8 @@ public class ProfessorGUI extends Application {
         StartPage startPage = new StartPage(primaryStage);
         SendPage sendPage = new SendPage(primaryStage);
         VerificationPage vPage = new VerificationPage();
+        EmailVerificationPage evPage = new EmailVerificationPage();
+
         // Open help window
 
         startPage.getBtnHelp().setOnAction(new EventHandler<ActionEvent>() {
@@ -218,8 +220,9 @@ public class ProfessorGUI extends Application {
                 fileName = fileName.substring(0, fileName.length()-4);
 
                 EmailComm eCom = new EmailComm();
-                eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
-                        "This is a test for our Project", emailList);
+                eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName, "This is a test for our Project", emailList);
+
+                //evPage.showEmailVerificationPage();
                 
                 dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
                         + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
