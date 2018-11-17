@@ -86,17 +86,18 @@ public class HelpPage {
 		star.setTextFill(Paint.valueOf("#FFFFFF"));
 		star.setLayoutY(413);
 		star.setLayoutX(513);
-		Label legend = new Label(" = CORRECT ANSWER");
-		legend.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
-		legend.setTextFill(Paint.valueOf("#FFFFFF"));
-		legend.setLayoutY(413);
-		legend.setLayoutX(523);
+
+		Label legend1 = new Label(" = CORRECT ANSWER");
+		legend1.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+		legend1.setTextFill(Paint.valueOf("#FFFFFF"));
+		legend1.setLayoutY(413);
+		legend1.setLayoutX(523);
 
 		ePane.getChildren().addAll(emailLabel, emailView);
 		qPane.getChildren().addAll(questLabel);
 
 		pane.setStyle(Styles.BACKGROUNDCOLOR);
-		pane.getChildren().addAll(ePane, qPane, close, questionView, legend, star);
+		pane.getChildren().addAll(ePane, qPane, close, questionView, legend1, star);
 
 		scene = new Scene(pane, 1000, close.getLayoutY() + close.getPrefHeight() + 20);
 		stage.getIcons().add(Styles.GSIcon);

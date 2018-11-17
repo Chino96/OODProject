@@ -6,10 +6,10 @@ public class Question{
 
 	public String question;
 
-	public ArrayList<String> answers;
+	public ArrayList<String> pAnswers;
 
 	public Question(String tQuestion) {
-		answers = new ArrayList<String>();
+		pAnswers = new ArrayList<String>();
 		question = tQuestion;
 	}
 }

@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ProfessorGUI extends Application {
 
@@ -30,7 +31,8 @@ public class ProfessorGUI extends Application {
 
 
     ArrayList<Question> questions;
-    ArrayList<String> answers;
+    ArrayList<String> pAnswers;
+    ArrayList<String> cAnswers;
 
     // Window style
 
@@ -51,7 +53,8 @@ public class ProfessorGUI extends Application {
         questionList = new File("src/questions.txt");
 
         questions = new ArrayList<>();
-        answers = new ArrayList<>();
+        pAnswers = new ArrayList<>();
+        cAnswers = new ArrayList<>();
         // Open help window
 
         startPage.getBtnHelp().setOnAction(new EventHandler<ActionEvent>() {
@@ -181,7 +184,7 @@ public class ProfessorGUI extends Application {
         sendPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(questionList);
+
                 //Add saved strings to for quiz options to be sent to the database
                 String quizCode;
                 String randQuest;
@@ -190,13 +193,14 @@ public class ProfessorGUI extends Application {
                 String feedbackOption;
                 String sMonth, sDay, sHour, sMin;
                 String eMonth, eDay, eHour, eMin;
+
+                //Flags for different errors
                 boolean fileErrors = false;
                 boolean timeErrors = false;
                 boolean qCodeError = false;
 
-                vPage.showVerificationPage();
 
-                /*
+                //Catch file null pointer and incorrect time errors
                 if (emailFile == null || questionList == null) {
                     fileErrors = true;
                 } else {
@@ -226,12 +230,14 @@ public class ProfessorGUI extends Application {
                     }
                 }
 
+
                 if(sendPage.getQuizCode().length() != 4){ qCodeError = true;}
                 if(fileErrors){ sendPage.setErrorLabel();}
                 else if(timeErrors){ sendPage.setTimeError();}
                 else if(qCodeError){ sendPage.setQCodeError();}
                 else{
                     sendPage.resetErrorLabel();
+
                     //Start time choices
                     sMonth = sendPage.getStartMonth();
                     sDay = sendPage.getStartDay();
@@ -266,7 +272,8 @@ public class ProfessorGUI extends Application {
                     //Save Quiz Code saved in Send Page
                     quizCode = sendPage.getQuizCode();
 
-                    */
+
+
                 //string to hold value of line read
                 String line;
                 String prevLine;
@@ -292,27 +299,38 @@ public class ProfessorGUI extends Application {
                         //If the previous line is not empty and current line is not empty, it will be added to answers
                         else if (currLine.length() >= 1) {
                             //add the answer to the last question in question arraylist
-                            questions.get(questions.size()-1).answers.add(currLine);
+                            questions.get(questions.size()-1).pAnswers.add(currLine);
                         }
                     }
                     txtReader.close();
+
+                    //Add correct answers into their own array cAnswers
+                    //Correct answer index will be in same index as question number it belongs to
+                    //Remove * from correct answer in pAnswer array
+                    for(int i = 0; i<questions.size(); i++){
+                        for(int j = 0; j< questions.get(i).pAnswers.size(); j++){
+                            if(questions.get(i).pAnswers.get(j).contains("*")){
+                                cAnswers.add(questions.get(i).pAnswers.get(j));
+                                questions.get(i).pAnswers.set(j, (questions.get(i).pAnswers.get(j)).substring(1));
+                            }
+                            else if(questions.get(i).pAnswers.get(j).contains("#")) {
+                                cAnswers.add(questions.get(i).pAnswers.get(j));
+                            }
+                        }
+                    }
+
+
+
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                    /*
-
-
                 }
-                */
         }
     });
 
-    //Options for Verification Page
-        vPage.getSend().
-
-    setOnAction(new EventHandler<ActionEvent>() {
-
+        //Options for Verification Page
+        vPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle (ActionEvent event){
 
@@ -339,13 +357,8 @@ public class ProfessorGUI extends Application {
 
             pause.setOnFinished(e -> evPage.closeEmailVerificationPage());
             pause.play();
-
-
         }
-
-
     });
-
         startPage.showStartPage();
 }// end start
 
