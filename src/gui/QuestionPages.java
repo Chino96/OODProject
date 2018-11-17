@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 
 public class QuestionPages {
 
-	//use file to generate questions and answers
+		//use file to generate questions and answers
 		File txtQuestions = new File("src/questions.txt");
 
 		//use Question object to store questions and answers

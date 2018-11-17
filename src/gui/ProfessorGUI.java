@@ -29,8 +29,8 @@ public class ProfessorGUI extends Application {
     private File questionList;
 
 
-    int count = 0;
     ArrayList<Question> questions;
+    ArrayList<String> answers;
 
     // Window style
 
@@ -47,8 +47,11 @@ public class ProfessorGUI extends Application {
         SendPage sendPage = new SendPage(primaryStage);
         VerificationPage vPage = new VerificationPage();
         EmailVerificationPage evPage = new EmailVerificationPage();
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        questionList = new File("src/questions.txt");
 
+        questions = new ArrayList<>();
+        answers = new ArrayList<>();
         // Open help window
 
         startPage.getBtnHelp().setOnAction(new EventHandler<ActionEvent>() {
@@ -168,7 +171,9 @@ public class ProfessorGUI extends Application {
         startPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
+
                 sendPage.showSendPage();
+
             }
         });// end send.setOnAction
 
@@ -176,7 +181,7 @@ public class ProfessorGUI extends Application {
         sendPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                System.out.println(questionList);
                 //Add saved strings to for quiz options to be sent to the database
                 String quizCode;
                 String randQuest;
@@ -189,7 +194,9 @@ public class ProfessorGUI extends Application {
                 boolean timeErrors = false;
                 boolean qCodeError = false;
 
+                vPage.showVerificationPage();
 
+                /*
                 if (emailFile == null || questionList == null) {
                     fileErrors = true;
                 } else {
@@ -218,6 +225,7 @@ public class ProfessorGUI extends Application {
                         timeErrors = true;
                     }
                 }
+
                 if(sendPage.getQuizCode().length() != 4){ qCodeError = true;}
                 if(fileErrors){ sendPage.setErrorLabel();}
                 else if(timeErrors){ sendPage.setTimeError();}
@@ -258,49 +266,92 @@ public class ProfessorGUI extends Application {
                     //Save Quiz Code saved in Send Page
                     quizCode = sendPage.getQuizCode();
 
-                    vPage.showVerificationPage();
+                    */
+                //string to hold value of line read
+                String line;
+                String prevLine;
+                String currLine = "";
+                int count = 0;
+
+                //catch file not found exceptions
+                try {
+                    //create file readers
+                    FileReader fileReader = new FileReader(questionList);
+                    BufferedReader txtReader = new BufferedReader(fileReader);
+
+                    //loop through every line of the file
+                    while ((line = txtReader.readLine()) != null) {
+                        prevLine = currLine;
+                        currLine = line;
+
+                        //Line before the question has to be blank to start a new question
+                        if (prevLine.length() < 1) {
+                            //add new question to question arraylist
+                            questions.add(new Question(currLine));
+                        }
+                        //If the previous line is not empty and current line is not empty, it will be added to answers
+                        else if (currLine.length() >= 1) {
+                            //add the answer to the last question in question arraylist
+                            questions.get(questions.size()-1).answers.add(currLine);
+                        }
+                    }
+                    txtReader.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-            }
-        });
-
-        //Options for Verification Page
-        vPage.getSend().setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-
-                fileName = startPage.getLblQFile().getText();
-                fileName = fileName.substring(0, fileName.length() - 4);
-
-                EmailComm eCom = new EmailComm();
-                eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName, "This is a test for our Project", emailList);
+                    /*
 
 
-                evPage.showEmailVerificationPage();
+                }
+                */
+        }
+    });
+
+    //Options for Verification Page
+        vPage.getSend().
+
+    setOnAction(new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle (ActionEvent event){
+
+            fileName = startPage.getLblQFile().getText();
+            fileName = fileName.substring(0, fileName.length() - 4);
+
+            EmailComm eCom = new EmailComm();
+            eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName, "This is a test for our Project", emailList);
 
 
-                dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
-                        + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
-                        + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
-                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO " + "\"QuizCodes\" VALUES ('" + fileName +
-                        "', " + sendPage.getQuizCode() + ");" +
-                        " CREATE TABLE public.\"" + fileName + "questions\"" + "("
-                        + "\"questions\" text COLLATE pg_catalog.\"default\","
-                        + "canswers text COLLATE pg_catalog.\"default\"," + "\"panswers\" text[]" + ")"
-                        + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
+            evPage.showEmailVerificationPage();
 
 
-                pause.setOnFinished(e -> evPage.closeEmailVerificationPage());
-                pause.play();
+            dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
+                    + "\"studentEmail\" text COLLATE pg_catalog.\"default\","
+                    + "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
+                    + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO " + "\"QuizCodes\" VALUES ('" + fileName +
+                    "', " + sendPage.getQuizCode() + ");" +
+                    " CREATE TABLE public.\"" + fileName + "questions\"" + "("
+                    + "\"questions\" text COLLATE pg_catalog.\"default\","
+                    + "canswers text COLLATE pg_catalog.\"default\"," + "\"panswers\" text[]" + ")"
+                    + "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;");
 
 
-            }
+            pause.setOnFinished(e -> evPage.closeEmailVerificationPage());
+            pause.play();
 
 
-        });
+        }
+
+
+    });
 
         startPage.showStartPage();
-    }// end start
+}// end start
+
+    public void setQuestions(File file) {
+        questionList = file;
+    }
 
 
 }
