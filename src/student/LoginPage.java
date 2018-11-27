@@ -1,6 +1,7 @@
-package gui;
+package student;
 
 import javafx.geometry.Side;
+import gui.Styles;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

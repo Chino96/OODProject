@@ -1,4 +1,4 @@
-package gui;
+package student;
 
 import java.sql.Array;
 import java.sql.PreparedStatement;
@@ -34,9 +34,11 @@ public class Quiz extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 
-				if(loginPage.getCodeField().getText().equals("1234") && loginPage.getEmail().contains("@georgiasouthern.edu")) {
+				if(Proxy.checkCode(Integer.parseInt(loginPage.getCodeField().getText())) == 0) {
 
+					Proxy.quizCode = Integer.parseInt(loginPage.getCodeField().getText());
 					studentEmail = loginPage.getEmail();
+					qPages.readData();
 					qPages.generatePage(pageNum);
 					stage.setScene(qPages.getScenes().get(pageNum));
 					loginPage.resetError();

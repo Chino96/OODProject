@@ -8,6 +8,9 @@ public class DataBase {
 	public DataBase() {
 		con = new Connector();
 	}
+	public DataBase(String usr, String pass) {
+		con = new Connector(usr,pass);
+	}
 	
 	public void Write(String s) {
 		this.con.connect();

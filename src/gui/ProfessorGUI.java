@@ -236,12 +236,13 @@ public class ProfessorGUI extends Application {
 						+ "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
 						+ "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO "
 						+ "\"QuizCodes\" VALUES ('" + fileName + "', " + sendPage.getQuizCode().getText() + ");"
-						
 						+ " CREATE TABLE public.\"" + fileName + "questions\"" + "("
 						+ "id serial primary key,"
 						+ "\"questions\" text COLLATE pg_catalog.\"default\","
 						+ "canswers text COLLATE pg_catalog.\"default\"," + "\"panswers\" text[]" + ")" + "WITH ("
-						+ "OIDS = FALSE)" + "TABLESPACE pg_default;");
+						+ "OIDS = FALSE)" + "TABLESPACE pg_default;"
+						+"grant Insert, Select On table\""+fileName+"questions\" to student;"
+						);
 				
 				pushQuestions(questionList);
 			}
@@ -281,10 +282,13 @@ public class ProfessorGUI extends Application {
 				else if (currLine.length() > 1) {
 					// add the answer to the last question in question arraylist
 					if (currLine.contains("*")) {
-						dataBase.Write("UPDATE " + fileName + "questions SET canswers = \'"+ currLine +"\' WHERE id=" + count);
+						currLine = currLine.substring(1);
+						dataBase.Write("UPDATE " + fileName + "questions SET canswers = \'"+ currLine +" \' WHERE id=" + count);
+						dataBase.Write("UPDATE " + fileName + "questions SET panswers = panswers|| \'{"+currLine+"}\' WHERE id=" + count);
+
 					}
 					else {
-						dataBase.Write("UPDATE " + fileName + "questions SET panswers = panswers|| \'{"+currLine+"}\' WHERE id=" + count);
+						dataBase.Write("UPDATE " + fileName + "questions SET panswers = panswers|| \'{"+currLine+" }\' WHERE id=" + count);
 					}
 				}
 			}
