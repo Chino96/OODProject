@@ -28,6 +28,8 @@ public class QuestionPages {
 	ArrayList<String> questionNum;
 	// list of buttons
 	ArrayList<RadioButton> answerBtnList;
+	ToggleGroup group;
+	int MCQ = 0;
 
 	// arraylist of scenes each scene is a new page
 	ArrayList<Scene> scenes;
@@ -122,7 +124,7 @@ public class QuestionPages {
 
 		Text answer = new Text("A) ");
 
-		ToggleGroup group = new ToggleGroup();
+		group = new ToggleGroup();
 		// loop through all answers and create radio buttons
 		for (int i = 0; i <= rdioAnswer.length - 1; i++) {
 
@@ -156,7 +158,6 @@ public class QuestionPages {
 						buttonStyle + "-fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-width: 5px;");
 				pane.getChildren().add(shortAnswer);
 			} else {
-
 				// otherwise create a radio button for the answer
 				rdioAnswer[i] = new RadioButton();
 				rdioAnswer[i].setText(answer.getText() + questions.get(index).answers.get(i));
@@ -170,6 +171,7 @@ public class QuestionPages {
 				pane.getChildren().add(rdioAnswer[i]);
 				yPos += 30;
 			}
+			
 		}
 		// add new scene using the pane
 		scenes.add(new Scene(pane));
@@ -222,6 +224,8 @@ public class QuestionPages {
 						else {
 							questions.get(questions.size() - 1).answers
 							.add("#");
+							questions.get(questions.size() - 1).cAnswer = "#";
+							MCQ++;
 						}
 						
 					}
@@ -231,7 +235,6 @@ public class QuestionPages {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Collections.shuffle(questions);
 
 	}
 }
