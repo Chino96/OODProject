@@ -20,8 +20,6 @@ public class Connector {
 	private String dbName;
 	private String user;
 	private String password;
-
-	VerificationPage vPage = new VerificationPage();
 	
 	public Connector() {
 		port = "5432";

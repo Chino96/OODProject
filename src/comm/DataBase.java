@@ -5,8 +5,13 @@ import java.sql.ResultSet;
 public class DataBase {
 
 	private Connector con;
+	
 	public DataBase() {
 		con = new Connector();
+	}
+	
+	public DataBase(String user, String pass) {
+		con = new Connector(user, pass);
 	}
 	
 	public void Write(String s) {
