@@ -60,9 +60,7 @@ public class gradeReport {
 			File gradeReport = new File(userHomePath+"\\Documents\\Reports\\Scores\\"+fileName+".scores.txt");
 		      
 		      if (gradeReport.createNewFile()){
-		        System.out.println("File is created!");
 		      }else{
-		        System.out.println("File already exists.");
 		      }
 	    	} catch (IOException e) {
 		      e.printStackTrace();

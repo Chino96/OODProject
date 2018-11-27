@@ -11,17 +11,6 @@ import comm.Connector;
 
 public class responseReport {
 	
-//	public static void main(String[] args) {
-//		String fileName = "testquiz";
-//		createResponseReportTxt(fileName);
-//		try {
-//			appendResponseReportTxt(fileName);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	
 	public static void appendResponseReportTxt(String fileName) throws SQLException {
 		String userHomePath = System.getProperty("user.home");
 		
@@ -48,16 +37,14 @@ public class responseReport {
 				Array responses = resultSet.getArray(2);
 				String[] sResponses = (String[])responses.getArray();
 				bw.write(email); //Print email
-				bw.newLine();
-				bw.write(question);
-				bw.newLine();
+				bw.newLine();bw.newLine();
 				for (int i=0; i < sResponses.length; i++)  {
-					bw.write(sResponses[i]); //Print Response
-					bw.newLine();
-					questions.next();
 					question = questions.getString(1);
+					questions.next();
 					bw.write(question);
 					bw.newLine();
+					bw.write(sResponses[i]); //Print Response
+					bw.newLine();bw.newLine();
 				}
 				bw.newLine();
 				questions.next();//Move to the next line to print the next row.           
@@ -86,9 +73,7 @@ public class responseReport {
 				String userHomePath = System.getProperty("user.home");
 				File gradeReport = new File(userHomePath+"\\Documents\\Reports\\Responses\\"+fileName+ email+".answers.txt");
 				if (gradeReport.createNewFile()){
-		    		System.out.println("File is created!");
 		    	}else{
-		    		System.out.println("File already exists.");
 		    	}
 			}
 	   		 

@@ -52,7 +52,6 @@ public class Connector {
 					this.password);
 			System.out.println("Connection Successful");
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return 1;
 		}
 
@@ -63,7 +62,6 @@ public class Connector {
 		try {
 			this.resultSet = this.getStatement().executeQuery(s);
 		} catch (SQLException e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		return this.resultSet;
 	}
@@ -73,7 +71,6 @@ public class Connector {
 			this.getStatement().executeUpdate(s);
 		}
 		catch(SQLException e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 	}
 	
@@ -81,7 +78,6 @@ public class Connector {
 		try {
 			this.statment = connect.createStatement();
 		} catch (SQLException e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		return statment;
 	}
