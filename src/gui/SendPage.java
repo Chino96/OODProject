@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Calendar;
+
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -439,4 +441,56 @@ public class SendPage {
 	public void resetErrorLabel() {
 		errorLabel.setText("");
 	}
+	public CheckBox getCb3() {
+		return cb3;
+	}
+	public String getStartTime(){
+		   String sYear, sMonth, sDay, sHour, sMin;
+		   int year = Calendar.getInstance().get(Calendar.YEAR);
+		   sYear = "" + year;
+		   sMonth = "" + startMonth.getSelectionModel().getSelectedIndex();
+		   sDay = startDay.getValue().toString();
+		   sHour = startHour.getValue().toString();
+		   sMin = startMin.getValue().toString();
+
+		   if(startMonth.getSelectionModel().getSelectedIndex()< 9){
+		      sMonth = "0" + (startMonth.getSelectionModel().getSelectedIndex()+1);
+		   }
+		   if(startDay.getValue()< 10){
+		      sDay = "0" + startDay.getValue();
+		   }
+		   if(startHour.getValue()< 10){
+		      sHour = "0" + startHour.getValue();
+		   }
+		   if(startMin.getValue()< 10){
+		      sMin = "0" + startMin.getValue();
+		   }
+
+		   return sYear + "-" + sMonth + "-" + sDay + " " + sHour + ":" + sMin + ":00";
+		}
+
+		public String getEndTime(){
+		   String eYear, eMonth, eDay, eHour, eMin;
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		   eYear = "" + year;
+		   eMonth = "" + endMonth.getSelectionModel().getSelectedIndex();
+		   eDay = endDay.getValue().toString();
+		   eHour = endHour.getValue().toString();
+		   eMin = endMin.getValue().toString();
+
+		   if(endMonth.getSelectionModel().getSelectedIndex()< 9){
+		      eMonth = "0" + (endMonth.getSelectionModel().getSelectedIndex()+1);
+		   }
+		   if(endDay.getValue()< 10){
+		      eDay = "0" + endDay.getValue();
+		   }
+		   if(endHour.getValue()< 10){
+		      eHour = "0" + endHour.getValue();
+		   }
+		   if(endMin.getValue()< 10){
+		      eMin = "0" + endMin.getValue();
+		   }
+
+		   return eYear + "-" + eMonth + "-" + eDay + " " + eHour + ":" + eMin + ":00";
+		}
 }

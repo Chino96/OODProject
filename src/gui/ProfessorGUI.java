@@ -226,8 +226,17 @@ public class ProfessorGUI extends Application {
 				fileName = fileName.substring(0, fileName.length() - 4);
 
 				EmailComm eCom = new EmailComm();
-				eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
-						"This is a test for our Project", emailList);
+
+				if (sendPage.getCb3().isSelected()) {
+					eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
+							"Quiz Code will be provided in class.\nhttps://drive.google.com/open?id=1a8Lnf0xyymfGx8sUHWr7vpZ64ljGHCKr",
+							emailList);
+				} else {
+					eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
+							"Quiz Code: " + sendPage.getQuizCode().getText()
+									+ "\nhttps://drive.google.com/open?id=1a8Lnf0xyymfGx8sUHWr7vpZ64ljGHCKr",
+							emailList);
+				}
 
 				evPage.showEmailVerificationPage();
 
@@ -235,15 +244,14 @@ public class ProfessorGUI extends Application {
 						+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
 						+ "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
 						+ "WITH (" + "OIDS = FALSE)" + "TABLESPACE pg_default;" + " " + "INSERT INTO "
-						+ "\"QuizCodes\" VALUES ('" + fileName + "', " + sendPage.getQuizCode().getText() + ");"
-						+ " CREATE TABLE public.\"" + fileName + "questions\"" + "("
-						+ "id serial primary key,"
+						+ "\"QuizCodes\" VALUES ('" + fileName + "', '" + sendPage.getQuizCode().getText() + "','"
+						+ sendPage.getStartTime() + "','" + sendPage.getEndTime() + "');" + " CREATE TABLE public.\""
+						+ fileName + "questions\"" + "(" + "id serial primary key,"
 						+ "\"questions\" text COLLATE pg_catalog.\"default\","
 						+ "canswers text COLLATE pg_catalog.\"default\"," + "\"panswers\" text[]" + ")" + "WITH ("
-						+ "OIDS = FALSE)" + "TABLESPACE pg_default;"
-						+"grant Insert, Select On table\""+fileName+"questions\" to student;"
-						);
-				
+						+ "OIDS = FALSE)" + "TABLESPACE pg_default;" + "grant Insert, Select On table\"" + fileName
+						+ "questions\" to student;");
+
 				pushQuestions(questionList);
 			}
 
@@ -274,7 +282,7 @@ public class ProfessorGUI extends Application {
 				if (prevLine.length() < 1) {
 					count++;
 					// add new question to question arraylist
-					dataBase.Write("INSERT INTO " + fileName + "questions (questions) VALUES(\'" + currLine + "\')");
+					dataBase.Write("INSERT INTO \"" + fileName + "\"questions(questions) VALUES(\'" + currLine + "\')");
 
 				}
 				// If the previous line is not empty and current line is not empty, it will be
@@ -283,12 +291,14 @@ public class ProfessorGUI extends Application {
 					// add the answer to the last question in question arraylist
 					if (currLine.contains("*")) {
 						currLine = currLine.substring(1);
-						dataBase.Write("UPDATE " + fileName + "questions SET canswers = \'"+ currLine +" \' WHERE id=" + count);
-						dataBase.Write("UPDATE " + fileName + "questions SET panswers = panswers|| \'{"+currLine+"}\' WHERE id=" + count);
+						dataBase.Write("UPDATE \"" + fileName + "\"questions SET canswers = \'" + currLine + " \' WHERE id="
+								+ count);
+						dataBase.Write("UPDATE \"" + fileName + "\"questions SET panswers = panswers|| \'{" + currLine
+								+ "}\' WHERE id=" + count);
 
-					}
-					else {
-						dataBase.Write("UPDATE " + fileName + "questions SET panswers = panswers|| \'{"+currLine+" }\' WHERE id=" + count);
+					} else {
+						dataBase.Write("UPDATE \"" + fileName + "\"questions SET panswers = panswers|| \'{" + currLine
+								+ " }\' WHERE id=" + count);
 					}
 				}
 			}
@@ -298,4 +308,5 @@ public class ProfessorGUI extends Application {
 			e.printStackTrace();
 		}
 	}
+
 }

@@ -62,11 +62,13 @@ public class Quiz extends Application {
 					String ss = btn.getText().substring(3);
 					if (btn.getText().substring(3).contains(qPages.questions.get(pageNum).cAnswer.trim())) {
 						cans++;
-						System.out.println("Damn we made it");
 
 					}
 
 					resPon.add(btn.getText().substring(3));
+				}
+				else {
+					resPon.add(qPages.shortAnswer.getText());
 				}
 				pageNum++;
 				qPages.generatePage(pageNum);
@@ -95,7 +97,7 @@ public class Quiz extends Application {
 				try {
 					try {
 						String bleh[] = resPon.toArray(new String[0]);
-						String quizName = "testquiz";
+						String quizName = Proxy.quizName;
 						String sql = "INSERT INTO " + quizName + " VALUES (?, ?, ?);";
 
 						Connector conn = new Connector();
@@ -104,7 +106,7 @@ public class Quiz extends Application {
 						PreparedStatement p = Connector.connect.prepareStatement(sql);
 						p.setString(1, studentEmail);
 						p.setArray(2, arrResponses);
-						p.setInt(3, (cans / qPages.MCQ) * 100); // Final grade once calculated
+						p.setDouble(3, (((double)cans / ((double)qPages.questions.size()-qPages.MCQ)) * 100)); // Final grade once calculated
 						p.executeUpdate();
 						System.out.println(((double)cans / ((double)qPages.questions.size()-qPages.MCQ)) * 100);
 					} catch (SQLException e) {
@@ -115,7 +117,9 @@ public class Quiz extends Application {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				stage.close();
+				stage.close();				
+
+				GradePage gp = new GradePage("Your Grade\n\n    "+Math.round((((double)cans / ((double)qPages.questions.size()-qPages.MCQ)) * 100) * 100.0) / 100.0 + "%");
 
 			}
 

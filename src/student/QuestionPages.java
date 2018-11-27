@@ -26,6 +26,7 @@ public class QuestionPages {
 	ArrayList<Question> questions;
 	ArrayList<String> answers;
 	ArrayList<String> questionNum;
+	TextArea shortAnswer;
 	// list of buttons
 	ArrayList<RadioButton> answerBtnList;
 	ToggleGroup group;
@@ -148,7 +149,7 @@ public class QuestionPages {
 			answer.setFont(Font.font("Arial", 20));
 			// if the answer is a # create a text area
 			if (questions.get(index).answers.get(i).equals("#")) {
-				TextArea shortAnswer = new TextArea();
+				shortAnswer = new TextArea();
 				shortAnswer.setWrapText(true);
 				shortAnswer.setLayoutX(30);
 				shortAnswer.setLayoutY(yPos);
