@@ -95,7 +95,7 @@ public class SendPage {
 	public void buildSendPage(Stage sendStage, Stage parentStage, Pane sendPane, Scene sendScene) {
 		sendPane.setStyle(Styles.BACKGROUNDCOLOR);
 		sendStage.setTitle("Send Quiz");
-		sendScene = new Scene(sendPane, 800, 400);
+		sendScene = new Scene(sendPane, 800, 350);
 
 		startMonth.setLayoutX(20);
 		startMonth.setPrefWidth(130);
@@ -231,7 +231,7 @@ public class SendPage {
 		VBox qBox = new VBox();
 		qBox.setPrefWidth((startMin.getPrefWidth() + startMin.getLayoutX()) - startMonth.getLayoutX());
 		qBox.setLayoutX(startMin.getPrefWidth() + startMin.getLayoutX());
-		qBox.setLayoutY(20);
+		qBox.setLayoutY(80);
 		qBox.setSpacing(5);
 		qBox.getChildren().addAll(qcode);
 		qBox.setAlignment(Pos.CENTER);
@@ -252,67 +252,15 @@ public class SendPage {
 			}
 		}));
 
-		Label feedback = new Label("Set Feedback Option");
-		feedback.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-		feedback.setTextFill(Paint.valueOf("#FFFFFF"));
-
-		VBox feedbackBox = new VBox();
-		feedbackBox.setPrefWidth(279);
-		feedbackBox.setLayoutX(440);
-		feedbackBox.setLayoutY(160);
-		feedbackBox.setSpacing(5);
-		feedbackBox.getChildren().addAll(feedback);
-		feedbackBox.setAlignment(Pos.CENTER);
-
-		rb1.setToggleGroup(group);
-		rb1.setFont(Font.font("Arial", 14));
-		rb1.setSelected(true);
-
-		rb2.setToggleGroup(group);
-		rb2.setFont(Font.font("Arial", 14));
-
-		rb3.setToggleGroup(group);
-		rb3.setFont(Font.font("Arial", 14));
-
-		rb4.setToggleGroup(group);
-		rb4.setFont(Font.font("Arial", 14));
-
-		VBox rBox = new VBox();
-		rBox.setPrefWidth(310);
-		rBox.setLayoutX(feedbackBox.getLayoutX());
-		rBox.setLayoutY(feedbackBox.getLayoutY() + 40);
-		rBox.setAlignment(Pos.TOP_LEFT);
-		rBox.setSpacing(10);
-		rBox.getChildren().addAll(rb1, rb2, rb3,rb4);
-
-		cb1.setLayoutX(33);
-		cb1.setLayoutY(260);
-		cb1.setTextFill(Color.WHITE);
-		cb1.setFont(Font.font("Arial", 13));
-
-
-		cb2.setLayoutX(cb1.getLayoutX());
-		cb2.setLayoutY(cb1.getLayoutY()+30);
+		cb2.setLayoutX(30);
+		cb2.setLayoutY(255);
 		cb2.setTextFill(Color.WHITE);
 		cb2.setFont(Font.font("Arial", 13));
 		
-		cb3.setLayoutX(cb1.getLayoutX());
-		cb3.setLayoutY(cb1.getLayoutY()+60);
+		cb3.setLayoutX(30);
+		cb3.setLayoutY(cb2.getLayoutY() + 30);
 		cb3.setTextFill(Color.WHITE);
 		cb3.setFont(Font.font("Arial", 13));
-
-		rb1.setLayoutX(feedbackBox.getLayoutX());
-		rb2.setLayoutX(feedbackBox.getLayoutX());
-		rb3.setLayoutX(feedbackBox.getLayoutX());
-
-		rb1.setLayoutY(feedbackBox.getLayoutY() + 40);
-		rb2.setLayoutY(feedbackBox.getLayoutY() + 70);
-		rb3.setLayoutY(feedbackBox.getLayoutY() + 100);
-
-		rb1.setTextFill(Paint.valueOf("#FFFFFF"));
-		rb2.setTextFill(Paint.valueOf("#FFFFFF"));
-		rb3.setTextFill(Paint.valueOf("#FFFFFF"));
-		rb4.setTextFill(Paint.valueOf("#FFFFFF"));
 
 		send.setLayoutX(sendScene.getWidth() - 100);
 		send.setLayoutY(sendScene.getHeight() - 55);
@@ -344,8 +292,8 @@ public class SendPage {
 
 
 
-		sendPane.getChildren().addAll(cb1, cb2, cb3, send, startMonth, startDay, startHour, startMin, feedbackBox, startDayLabel,
-				startHourLabel, startMonthLabel, startMinLabel, endDayLabel, endHourLabel, endMonthLabel, endMinLabel, qBox, quizCode, rBox, startTimeBox,
+		sendPane.getChildren().addAll(cb2, cb3, send, startMonth, startDay, startHour, startMin, startDayLabel,
+				startHourLabel, startMonthLabel, startMinLabel, endDayLabel, endHourLabel, endMonthLabel, endMinLabel, qBox, quizCode, startTimeBox,
 				endTimeBox, cancel, endMonth, endDay, endHour, endMin, errorLabel);
 		sendStage.getIcons().add(Styles.GSIcon);
 		sendStage.setScene(sendScene);
@@ -420,6 +368,10 @@ public class SendPage {
 
 	public CheckBox getCb2() {
 		return cb2;
+	}
+
+	public CheckBox getCb3() {
+		return cb3;
 	}
 
 	public TextField getQuizCode() {
