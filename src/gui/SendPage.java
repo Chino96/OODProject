@@ -66,7 +66,7 @@ public class SendPage {
 		send = new Button("Send");
 
 		cb1 = new CheckBox("Randomize Questions");
-		cb2 = new CheckBox("Show Feed Back");
+		cb2 = new CheckBox("Show Score");
 		cb3 = new CheckBox("In Class Quiz");
 		
 

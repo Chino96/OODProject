@@ -33,7 +33,7 @@ public class responseReport {
 			ResultSet resultSet = con.MakeQuery("Select \"studentEmail\",\"responses\" from \""+fileName+"\"");	
 			ResultSet questions = con.MakeQuery("SELECT \"questions\" FROM \"" + fileName +"questions\"");
 			while (resultSet.next() && questions.next()) {    
-				String question = questions.getString(1);
+				String question;
 				Array responses = resultSet.getArray(2);
 				String[] sResponses = (String[])responses.getArray();
 				bw.write(email); //Print email
@@ -45,6 +45,9 @@ public class responseReport {
 					bw.newLine();
 					bw.write(sResponses[i]); //Print Response
 					bw.newLine();bw.newLine();
+					sResponses = (String[])responses.getArray();
+					resultSet.next();
+					
 				}
 				bw.newLine();
 				questions.next();//Move to the next line to print the next row.           

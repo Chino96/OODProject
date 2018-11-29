@@ -42,5 +42,8 @@ public class EmailVerificationPage {
         stage.show();
     }
 
+    public void close() {
+    	stage.close();
+    }
 
 }

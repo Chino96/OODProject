@@ -221,21 +221,29 @@ public class ProfessorGUI extends Application {
 			public void handle(ActionEvent event) {
 				fileName = startPage.getLblQFile().getText();
 				fileName = fileName.substring(0, fileName.length() - 4).toLowerCase();
+				
+				Thread thread = new Thread() {
+					public void run() {
+						
+						EmailComm eCom = new EmailComm();
+						if (sendPage.getCb3().isSelected()) {
+							eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
+									"Quiz Code will be provided in class.\nhttps://drive.google.com/open?id=1-ShYnZFrhf-o9RcftVS3pTJ78WyoV9EL",
+									emailList);
+						} else {
+							eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
+									"Quiz Code: " + sendPage.getQuizCode().getText()
+											+ "\nhttps://drive.google.com/open?id=1-ShYnZFrhf-o9RcftVS3pTJ78WyoV9EL",
+									emailList);
+						}
+						
+					}
+				};
 
-				EmailComm eCom = new EmailComm();
-				if (sendPage.getCb3().isSelected()) {
-					eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
-							"Quiz Code will be provided in class.\nhttps://drive.google.com/open?id=1a8Lnf0xyymfGx8sUHWr7vpZ64ljGHCKr",
-							emailList);
-				} else {
-					eCom.sendEmails(vPage.getEmailField().getText(), vPage.getPassField().getText(), fileName,
-							"Quiz Code: " + sendPage.getQuizCode().getText()
-									+ "\nhttps://drive.google.com/open?id=1a8Lnf0xyymfGx8sUHWr7vpZ64ljGHCKr",
-							emailList);
-				}
+				thread.start();
 
 				evPage.showEmailVerificationPage();
-
+				
 				dataBase.Write("CREATE TABLE public.\"" + fileName + "\"" + "("
 						+ "\"studentEmail\" text COLLATE pg_catalog.\"default\","
 						+ "responses text[] COLLATE pg_catalog.\"default\"," + "\"finalGrade\" double precision" + ")"
